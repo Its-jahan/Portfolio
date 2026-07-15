@@ -1,5 +1,6 @@
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import ChatParallax from './components/ChatParallax'
 import Divider from './components/Divider'
 import WorkIntro from './components/WorkIntro'
 import ProjectsShowcase from './components/ProjectsShowcase'
@@ -47,6 +48,11 @@ export default function App() {
 
       <main className="relative mx-auto flex max-w-[752px] flex-col px-5">
         <Hero />
+      </main>
+
+      <ChatParallax />
+
+      <main className="relative mx-auto flex max-w-[752px] flex-col px-5">
         <WorkIntro />
         <Divider className="py-[65px]" />
       </main>
