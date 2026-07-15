@@ -123,7 +123,9 @@ export function Reveal({ children, delay = 0, y = 26, blur = 10, duration = 850,
       // engages near the top, so it never touches entering content.
       const start = vh * 0.24
       const end = -r.height * 0.35 - vh * 0.02
-      const next = clamp01((start - r.top) / (start - end))
+      // gate on real scroll so blocks that naturally sit near the top
+      // (the hero) load crisp and fully un-dissolve when scrolled back
+      const next = clamp01((start - r.top) / (start - end)) * clamp01(window.scrollY / 160)
       setEx((prev) => (Math.abs(prev - next) > 0.002 ? next : prev))
     })
   }, [exit])
