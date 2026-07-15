@@ -64,10 +64,10 @@ function StatueGlitch() {
       role="img"
     >
       <div className="statue-glitch__neon" aria-hidden="true">
-        <span className="statue-glitch__crown">♛</span>
         <span className="statue-glitch__arrow statue-glitch__arrow--left">↢</span>
         <span className="statue-glitch__arrow statue-glitch__arrow--right">↣</span>
       </div>
+      <span className="statue-glitch__crown" aria-hidden="true">♛</span>
 
       <img src={bust} alt="" className="statue-glitch__image statue-glitch__image--base" />
       <img src={bust} alt="" className="statue-glitch__image statue-glitch__image--cyan" />

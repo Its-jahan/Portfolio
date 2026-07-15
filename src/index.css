@@ -106,11 +106,11 @@ body {
   18%,
   24%,
   62% {
-    opacity: 0.7;
+    opacity: 0.95;
   }
   20%,
   68% {
-    opacity: 0.34;
+    opacity: 0.4;
   }
 }
 
@@ -136,14 +136,18 @@ body {
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-  13%,
-  48% {
-    opacity: 0.3;
-    transform: translate3d(-8px, 0, 0);
+  10%,
+  46% {
+    opacity: 0.85;
+    transform: translate3d(-14px, 2px, 0);
   }
   58% {
+    opacity: 0.4;
+    transform: translate3d(7px, -3px, 0);
+  }
+  74% {
     opacity: 0;
-    transform: translate3d(4px, 3px, 0);
+    transform: translate3d(3px, 0, 0);
   }
 }
 
@@ -153,14 +157,18 @@ body {
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-  18%,
-  54% {
-    opacity: 0.25;
-    transform: translate3d(9px, 0, 0);
+  14%,
+  52% {
+    opacity: 0.8;
+    transform: translate3d(13px, -2px, 0);
   }
   64% {
+    opacity: 0.35;
+    transform: translate3d(-6px, 3px, 0);
+  }
+  78% {
     opacity: 0;
-    transform: translate3d(-4px, -2px, 0);
+    transform: translate3d(-2px, 0, 0);
   }
 }
 
@@ -170,14 +178,18 @@ body {
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-  16%,
-  42% {
-    opacity: 0.95;
-    transform: translate3d(-20px, 0, 0);
+  12%,
+  44% {
+    opacity: 1;
+    transform: translate3d(-30px, 0, 0);
   }
-  57% {
+  56% {
+    opacity: 1;
+    transform: translate3d(18px, 0, 0);
+  }
+  70% {
     opacity: 0;
-    transform: translate3d(13px, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -187,14 +199,18 @@ body {
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-  21%,
-  54% {
-    opacity: 0.8;
-    transform: translate3d(18px, 0, 0);
+  16%,
+  50% {
+    opacity: 1;
+    transform: translate3d(26px, 0, 0);
   }
-  66% {
+  62% {
+    opacity: 1;
+    transform: translate3d(-16px, 0, 0);
+  }
+  74% {
     opacity: 0;
-    transform: translate3d(-12px, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -204,14 +220,18 @@ body {
     opacity: 0;
     transform: translate3d(0, 0, 0);
   }
-  26%,
-  61% {
-    opacity: 0.72;
-    transform: translate3d(-12px, 0, 0);
+  14%,
+  52% {
+    opacity: 1;
+    transform: translate3d(0, 26px, 0);
   }
-  72% {
+  64% {
+    opacity: 1;
+    transform: translate3d(0, -14px, 0);
+  }
+  76% {
     opacity: 0;
-    transform: translate3d(20px, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -302,13 +322,23 @@ body {
 
 .statue-glitch__crown {
   position: absolute;
-  top: 2%;
+  top: -3%;
   left: 50%;
+  z-index: 5;
+  color: #00e6a2;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  pointer-events: none;
   font-family: Georgia, serif;
-  font-size: 114px;
+  font-size: 118px;
   line-height: 1;
-  transform: translateX(-50%);
-  text-shadow: 0 0 22px rgba(0, 230, 162, 0.65);
+  transform: translateX(-50%) rotate(3deg);
+  filter: blur(2px);
+  text-shadow:
+    0 0 16px rgba(0, 230, 162, 0.9),
+    -13px 8px 14px rgba(0, 230, 162, 0.5),
+    13px 8px 14px rgba(0, 230, 162, 0.5),
+    0 30px 10px rgba(0, 230, 162, 0.35);
   animation: statue-crown-flicker 2.7s steps(4, end) infinite;
 }
 
@@ -332,43 +362,26 @@ body {
 
 .statue-glitch__slice {
   position: absolute;
+  inset: 0;
   z-index: 4;
-  overflow: hidden;
   opacity: 0;
   pointer-events: none;
 }
 
 .statue-glitch__slice .statue-glitch__image {
-  width: 276px;
-  height: 378px;
-  max-width: none;
+  filter: contrast(1.3) brightness(1.06);
 }
 
 .statue-glitch__slice--one {
-  top: 26%;
-  left: 7%;
-  width: 90%;
-  height: 12%;
-  clip-path: inset(0);
-  filter: contrast(1.25) brightness(1.08);
+  clip-path: inset(22% 4% 67% 4%);
 }
 
 .statue-glitch__slice--two {
-  top: 44%;
-  left: -5%;
-  width: 112%;
-  height: 9%;
-  clip-path: inset(0);
-  filter: contrast(1.3) brightness(1.03);
+  clip-path: inset(45% 0 44% 0);
 }
 
 .statue-glitch__slice--three {
-  top: 64%;
-  left: 12%;
-  width: 74%;
-  height: 17%;
-  clip-path: inset(0);
-  filter: contrast(1.4) brightness(1.12);
+  clip-path: inset(28% 36% 14% 46%);
 }
 
 .statue-glitch__scanlines {
@@ -383,19 +396,20 @@ body {
 
 .statue-glitch__window {
   position: absolute;
-  top: 28%;
-  left: 50%;
+  top: 16%;
+  left: 1%;
   z-index: 6;
   display: flex;
-  width: 142px;
-  height: 82px;
+  width: 176px;
+  height: 92px;
   flex-wrap: wrap;
   align-content: flex-start;
-  transform: translateX(-50%);
+  padding: 2px;
   overflow: hidden;
-  border: 2px solid #777;
-  background: #efefef;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 0 18px rgba(0, 230, 162, 0.28);
+  border: 2px solid;
+  border-color: #fdfdfd #4a4a4a #4a4a4a #fdfdfd;
+  background: #d6d6d6;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.3), 0 0 24px rgba(255, 19, 123, 0.3);
   opacity: 0;
   pointer-events: none;
   font-family: Arial, sans-serif;
@@ -405,7 +419,7 @@ body {
   flex: 1;
   height: 18px;
   padding: 1px 5px;
-  background: #1744ac;
+  background: linear-gradient(90deg, #1744ac, #2f6cd8);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -415,20 +429,30 @@ body {
 .statue-glitch__window b {
   width: 19px;
   height: 18px;
+  margin-left: 2px;
+  border: 1px solid;
+  border-color: #fdfdfd #4a4a4a #4a4a4a #fdfdfd;
+  background: #d6d6d6;
   color: #111;
-  font-size: 15px;
-  line-height: 16px;
+  font-size: 13px;
+  line-height: 15px;
   text-align: center;
 }
 
 .statue-glitch__window i {
   display: block;
   width: 100%;
-  height: 62px;
+  height: 64px;
+  margin-top: 2px;
+  border: 2px solid;
+  border-color: #4a4a4a #fdfdfd #fdfdfd #4a4a4a;
   background:
-    radial-gradient(circle at 49% 47%, #ff137b 0 9%, transparent 11%),
-    repeating-linear-gradient(90deg, rgba(255, 44, 130, 0.45) 0 2px, rgba(255, 255, 255, 0.25) 2px 4px),
-    linear-gradient(135deg, #d7d7d7, #fff 48%, #bfbfbf);
+    radial-gradient(circle at 52% 50%, rgba(255, 19, 123, 0.95) 0 7%, rgba(255, 19, 123, 0.5) 13%, rgba(255, 19, 123, 0.14) 26%, transparent 44%),
+    repeating-linear-gradient(0deg, rgba(255, 44, 130, 0.16) 0 1px, transparent 1px 3px),
+    url('./assets/bio-bust.png') no-repeat;
+  background-size: auto, auto, 640%;
+  background-position: center, center, 55% 25%;
+  filter: saturate(1.15) contrast(1.2);
 }
 
 .statue-glitch.is-glitching.glitch-type-0 .statue-glitch__image--cyan,
@@ -511,11 +535,6 @@ body {
 @media (max-width: 640px) {
   .statue-glitch {
     width: min(250px, 72vw);
-    height: 344px;
-  }
-
-  .statue-glitch__slice .statue-glitch__image {
-    width: 250px;
     height: 344px;
   }
 
