@@ -1,5 +1,5 @@
 import jakubLogo from '../assets/jakub-logo.svg'
-import { Reveal, Melt } from './motion'
+import { Reveal } from './motion'
 
 function Dot() {
   return (
@@ -12,7 +12,7 @@ function Dot() {
 export default function Hero() {
   return (
     <div className="flex w-full flex-col items-center pt-[106px]">
-      <Reveal once duration={950}><Melt><div className="flex w-full max-w-[680px] flex-col items-center text-center">
+      <Reveal once duration={950}><div className="flex w-full max-w-[680px] flex-col items-center text-center">
         {/* "Elevating" with the oklch color-code annotation */}
         <div className="relative inline-block">
           <p className="whitespace-nowrap font-display text-[60px] leading-[58px] tracking-[-1.2363px] text-[#18181a]">
@@ -70,10 +70,10 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div></Melt></Reveal>
+      </div></Reveal>
 
       {/* Byline pill with 32px spacing annotation */}
-      <Reveal once delay={150} duration={950}><Melt><div className="relative mt-[14px] flex flex-col items-center">
+      <Reveal once delay={150} duration={950}><div className="relative mt-[14px] flex flex-col items-center">
         <div className="flex items-center gap-[6px] rounded-full border border-[#e8e8e8] bg-white py-[3px] pl-[6px] pr-[12px]">
           <span className="flex size-5 items-center justify-center rounded-full bg-[#fcfcfc]">
             <img src={jakubLogo} alt="" className="size-4" />
@@ -86,10 +86,10 @@ export default function Hero() {
           <span className="h-8 w-8 border-l border-r border-[#fb64b6] bg-[rgba(246,51,154,0.1)]" />
           <span className="absolute left-full ml-2 whitespace-nowrap font-mono text-xs italic text-[#f6339a]">32 px</span>
         </div>
-      </div></Melt></Reveal>
+      </div></Reveal>
 
       {/* CTA with "Call To Action" annotation */}
-      <Reveal once delay={280} duration={950}><Melt><div className="relative inline-block">
+      <Reveal once delay={280} duration={950}><div className="relative inline-block">
         <a
           href="#contact"
           className="inline-flex h-[38px] items-center justify-center rounded-full border border-black bg-black px-4 font-satoshi text-[14px] font-bold leading-[15.68px] tracking-[-0.14px] text-white shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_25px_25px_-3.75px_rgba(0,0,0,0.11)]"
@@ -103,7 +103,7 @@ export default function Hero() {
             <span className="whitespace-nowrap font-mono text-xs italic text-[#646464]">Call To Action</span>
           </div>
         </div>
-      </div></Melt></Reveal>
+      </div></Reveal>
     </div>
   )
 }
