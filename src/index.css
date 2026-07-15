@@ -1,0 +1,536 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:ital,wght@0,400;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+@import "tailwindcss";
+
+/* Britti Sans v2 (Nois Type Studio) — licensed font.
+   Loads from your locally installed copy or from licensed .woff2 files
+   placed in src/assets/fonts/ (BrittiSans-Regular.woff2 etc.).
+   Falls back to General Sans / Inter until the files are present. */
+@font-face {
+  font-family: "Britti Sans";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Britti Sans"), local("BrittiSans-Regular"), local("Britti Sans Regular"),
+    url("./assets/fonts/BrittiSans-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Britti Sans";
+  font-weight: 500;
+  font-display: swap;
+  src: local("Britti Sans Medium"), local("BrittiSans-Medium"),
+    url("./assets/fonts/BrittiSans-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Britti Sans";
+  font-weight: 600;
+  font-display: swap;
+  src: local("Britti Sans SemiBold"), local("BrittiSans-SemiBold"),
+    url("./assets/fonts/BrittiSans-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Britti Sans";
+  font-weight: 700;
+  font-display: swap;
+  src: local("Britti Sans Bold"), local("BrittiSans-Bold"),
+    url("./assets/fonts/BrittiSans-Bold.woff2") format("woff2");
+}
+
+@theme {
+  --font-sans: "Britti Sans", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Libre Baskerville", Georgia, serif;
+  --font-display: "Britti Sans", "General Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-satoshi: "Satoshi", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-chat: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  --font-hanken: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html,
+body {
+  background: #ffffff;
+  color: #18181a;
+  font-family: var(--font-sans);
+}
+
+/* iMessage typing indicator dots */
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes statue-neon-pulse {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translate3d(0, 0, 0) rotate(-7deg) scale(0.98);
+  }
+  45% {
+    opacity: 0.28;
+    transform: translate3d(0, -4px, 0) rotate(-5deg) scale(1.02);
+  }
+}
+
+@keyframes statue-neon-flash {
+  0%,
+  100% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0) rotate(-7deg) scale(0.98);
+  }
+  28% {
+    opacity: 0.96;
+    transform: translate3d(-4px, -2px, 0) rotate(-5deg) scale(1.04);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translate3d(8px, 0, 0) rotate(-9deg) scale(0.99);
+  }
+  72% {
+    opacity: 0.84;
+    transform: translate3d(-5px, 3px, 0) rotate(-4deg) scale(1.02);
+  }
+}
+
+@keyframes statue-crown-flicker {
+  0%,
+  100% {
+    opacity: 0.26;
+  }
+  18%,
+  24%,
+  62% {
+    opacity: 0.7;
+  }
+  20%,
+  68% {
+    opacity: 0.34;
+  }
+}
+
+@keyframes statue-scan {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  12%,
+  58% {
+    opacity: 0.7;
+  }
+  72% {
+    opacity: 0;
+    transform: translateY(170px);
+  }
+}
+
+@keyframes statue-chroma-cyan {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  13%,
+  48% {
+    opacity: 0.3;
+    transform: translate3d(-8px, 0, 0);
+  }
+  58% {
+    opacity: 0;
+    transform: translate3d(4px, 3px, 0);
+  }
+}
+
+@keyframes statue-chroma-magenta {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  18%,
+  54% {
+    opacity: 0.25;
+    transform: translate3d(9px, 0, 0);
+  }
+  64% {
+    opacity: 0;
+    transform: translate3d(-4px, -2px, 0);
+  }
+}
+
+@keyframes statue-slice-one {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  16%,
+  42% {
+    opacity: 0.95;
+    transform: translate3d(-20px, 0, 0);
+  }
+  57% {
+    opacity: 0;
+    transform: translate3d(13px, 0, 0);
+  }
+}
+
+@keyframes statue-slice-two {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  21%,
+  54% {
+    opacity: 0.8;
+    transform: translate3d(18px, 0, 0);
+  }
+  66% {
+    opacity: 0;
+    transform: translate3d(-12px, 0, 0);
+  }
+}
+
+@keyframes statue-slice-three {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  26%,
+  61% {
+    opacity: 0.72;
+    transform: translate3d(-12px, 0, 0);
+  }
+  72% {
+    opacity: 0;
+    transform: translate3d(20px, 0, 0);
+  }
+}
+
+@keyframes statue-window {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0) scale(0.98);
+  }
+  20%,
+  65% {
+    opacity: 0.92;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  78% {
+    opacity: 0;
+    transform: translate3d(10px, -5px, 0) scale(0.98);
+  }
+}
+
+.statue-glitch {
+  position: relative;
+  width: min(276px, 72vw);
+  height: 378px;
+  isolation: isolate;
+}
+
+.statue-glitch__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.statue-glitch__image--base {
+  z-index: 2;
+}
+
+.statue-glitch__image--cyan,
+.statue-glitch__image--magenta {
+  z-index: 3;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.statue-glitch__image--cyan {
+  filter: sepia(1) saturate(7) hue-rotate(118deg) brightness(1.12);
+}
+
+.statue-glitch__image--magenta {
+  filter: sepia(1) saturate(7) hue-rotate(286deg) brightness(1.08);
+}
+
+.statue-glitch__neon {
+  position: absolute;
+  inset: 4% -16% 8%;
+  z-index: 1;
+  overflow: hidden;
+  color: #00e6a2;
+  filter: blur(1px) saturate(1.25);
+  opacity: 0.42;
+  transform: rotate(-7deg);
+  animation: statue-neon-pulse 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.statue-glitch__neon::before,
+.statue-glitch__neon::after {
+  position: absolute;
+  inset: 18% 0 13%;
+  content: '';
+  background:
+    linear-gradient(135deg, transparent 0 22%, rgba(0, 230, 162, 0.9) 23% 25%, transparent 26% 38%, rgba(0, 230, 162, 0.78) 39% 42%, transparent 43%),
+    linear-gradient(45deg, transparent 0 52%, rgba(0, 230, 162, 0.7) 53% 57%, transparent 58%),
+    radial-gradient(ellipse at 50% 42%, rgba(0, 230, 162, 0.72), transparent 58%);
+  filter: blur(11px);
+}
+
+.statue-glitch__neon::after {
+  inset: 30% -8% 0;
+  transform: rotate(8deg);
+  opacity: 0.7;
+}
+
+.statue-glitch__crown {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  font-family: Georgia, serif;
+  font-size: 114px;
+  line-height: 1;
+  transform: translateX(-50%);
+  text-shadow: 0 0 22px rgba(0, 230, 162, 0.65);
+  animation: statue-crown-flicker 2.7s steps(4, end) infinite;
+}
+
+.statue-glitch__arrow {
+  position: absolute;
+  top: 42%;
+  font-family: Georgia, serif;
+  font-size: 148px;
+  font-weight: 700;
+  line-height: 0.5;
+  text-shadow: 0 0 24px rgba(0, 230, 162, 0.75);
+}
+
+.statue-glitch__arrow--left {
+  left: -11%;
+}
+
+.statue-glitch__arrow--right {
+  right: -11%;
+}
+
+.statue-glitch__slice {
+  position: absolute;
+  z-index: 4;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.statue-glitch__slice .statue-glitch__image {
+  width: 276px;
+  height: 378px;
+  max-width: none;
+}
+
+.statue-glitch__slice--one {
+  top: 26%;
+  left: 7%;
+  width: 90%;
+  height: 12%;
+  clip-path: inset(0);
+  filter: contrast(1.25) brightness(1.08);
+}
+
+.statue-glitch__slice--two {
+  top: 44%;
+  left: -5%;
+  width: 112%;
+  height: 9%;
+  clip-path: inset(0);
+  filter: contrast(1.3) brightness(1.03);
+}
+
+.statue-glitch__slice--three {
+  top: 64%;
+  left: 12%;
+  width: 74%;
+  height: 17%;
+  clip-path: inset(0);
+  filter: contrast(1.4) brightness(1.12);
+}
+
+.statue-glitch__scanlines {
+  position: absolute;
+  inset: 9% 3% 6%;
+  z-index: 5;
+  background: repeating-linear-gradient(to bottom, transparent 0 5px, rgba(0, 230, 162, 0.22) 6px, transparent 7px);
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.statue-glitch__window {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  width: 142px;
+  height: 82px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 2px solid #777;
+  background: #efefef;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 0 18px rgba(0, 230, 162, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  font-family: Arial, sans-serif;
+}
+
+.statue-glitch__window span {
+  flex: 1;
+  height: 18px;
+  padding: 1px 5px;
+  background: #1744ac;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.statue-glitch__window b {
+  width: 19px;
+  height: 18px;
+  color: #111;
+  font-size: 15px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.statue-glitch__window i {
+  display: block;
+  width: 100%;
+  height: 62px;
+  background:
+    radial-gradient(circle at 49% 47%, #ff137b 0 9%, transparent 11%),
+    repeating-linear-gradient(90deg, rgba(255, 44, 130, 0.45) 0 2px, rgba(255, 255, 255, 0.25) 2px 4px),
+    linear-gradient(135deg, #d7d7d7, #fff 48%, #bfbfbf);
+}
+
+.statue-glitch.is-glitching.glitch-type-0 .statue-glitch__image--cyan,
+.statue-glitch.is-glitching.glitch-type-0 .statue-glitch__slice--one {
+  animation-duration: 980ms;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: both;
+}
+
+.statue-glitch.is-glitching.glitch-type-0 .statue-glitch__image--cyan {
+  animation-name: statue-chroma-cyan;
+}
+
+.statue-glitch.is-glitching.glitch-type-0 .statue-glitch__slice--one {
+  animation-name: statue-slice-one;
+}
+
+.statue-glitch.is-glitching.glitch-type-1 .statue-glitch__image--magenta,
+.statue-glitch.is-glitching.glitch-type-1 .statue-glitch__slice--two {
+  animation-duration: 980ms;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: both;
+}
+
+.statue-glitch.is-glitching.glitch-type-1 .statue-glitch__image--magenta {
+  animation-name: statue-chroma-magenta;
+}
+
+.statue-glitch.is-glitching.glitch-type-1 .statue-glitch__slice--two {
+  animation-name: statue-slice-two;
+}
+
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__image--cyan,
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__image--magenta,
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__slice--three,
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__window {
+  animation-duration: 980ms;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: both;
+}
+
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__image--cyan {
+  animation-name: statue-chroma-cyan;
+}
+
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__image--magenta {
+  animation-name: statue-chroma-magenta;
+}
+
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__slice--three {
+  animation-name: statue-slice-three;
+}
+
+.statue-glitch.is-glitching.glitch-type-2 .statue-glitch__window {
+  animation-name: statue-window;
+}
+
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__neon,
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__crown,
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__scanlines {
+  animation-duration: 980ms;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: both;
+}
+
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__neon {
+  animation-name: statue-neon-flash;
+  filter: blur(0) saturate(1.55);
+}
+
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__crown {
+  animation-name: statue-crown-flicker;
+}
+
+.statue-glitch.is-glitching.glitch-type-3 .statue-glitch__scanlines {
+  animation-name: statue-scan;
+}
+
+@media (max-width: 640px) {
+  .statue-glitch {
+    width: min(250px, 72vw);
+    height: 344px;
+  }
+
+  .statue-glitch__slice .statue-glitch__image {
+    width: 250px;
+    height: 344px;
+  }
+
+  .statue-glitch__crown {
+    font-size: 96px;
+  }
+
+  .statue-glitch__arrow {
+    font-size: 132px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statue-glitch__neon,
+  .statue-glitch__crown {
+    animation: none;
+  }
+}
