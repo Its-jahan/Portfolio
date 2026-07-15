@@ -49,6 +49,66 @@ export function useScrollProgress(ref) {
   return p
 }
 
+/* bridge.surf-style hero melt: as the element approaches the top of the
+   viewport it blurs, squishes upward (genie), wiggles, and fades out.
+   Purely scroll-driven and reversible; used only on the first section. */
+export function Melt({ children, className = '' }) {
+  const ref = useRef(null)
+  const [p, setP] = useState(0)
+
+  useEffect(() => {
+    if (reducedMotion()) return
+    const el = ref.current
+    if (!el) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const r = el.getBoundingClientRect()
+      const vh = window.innerHeight
+      // melt window: starts when the element's top crosses 28% of the
+      // viewport height, fully melted by 4%. Gated on actual scroll so
+      // elements that already sit high on the page load crisp.
+      const start = vh * 0.28
+      const end = vh * 0.04
+      const zone = clamp01((start - r.top) / (start - end))
+      setP(zone * clamp01(window.scrollY / 140))
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    update()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  const wiggle = Math.sin(p * Math.PI * 2.5) * 3.5 * (1 - p)
+  const style =
+    p <= 0
+      ? undefined
+      : {
+          opacity: 1 - easeOut(p),
+          filter: `blur(${p * 13}px)`,
+          transform: [
+            `translateY(${-p * 26}px)`,
+            `scale(${1 + p * 0.05}, ${1 - p * 0.28})`,
+            `skewX(${wiggle}deg)`,
+          ].join(' '),
+          transformOrigin: 'center top',
+          willChange: 'transform, opacity, filter',
+        }
+
+  return (
+    <div ref={ref} className={className} style={style}>
+      {children}
+    </div>
+  )
+}
+
 /* Fade-up reveal with blur, like the reference site's section entrances.
    Reverses whenever the element exits the viewport, so the storytelling
    follows the scroll in both directions. */
