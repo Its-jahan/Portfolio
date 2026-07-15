@@ -32,7 +32,7 @@ export default function Services() {
   return (
     <section className="flex w-full flex-col items-center gap-[26px]">
       <Reveal><div className="flex flex-col items-center text-center">
-        <h2 className="font-display text-[32px] font-medium leading-10 tracking-[-0.23px] text-[#202020]">
+        <h2 className="font-display text-[32px] font-medium leading-10 tracking-[-0.2297px] text-[#202020]">
           My capabilities that fulfill all your wishes
         </h2>
         <p className="mt-2 max-w-[350px] text-[14px] leading-[17px] text-[#404040]">

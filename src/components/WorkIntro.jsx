@@ -29,10 +29,10 @@ function Panel({ icon, iconBg, chip, chipBordered }) {
         >
           {chip}
         </span>
-        <p className="pt-2 text-[17px] font-medium leading-[26px] tracking-[-0.4px] text-[#202020]">
+        <p className="pt-2 text-[18px] font-medium leading-[24.75px] tracking-[-0.4395px] text-[#202020]">
           Designing interfaces that feel natural and intuitive
         </p>
-        <p className="pt-1 text-sm leading-5 tracking-[-0.15px] text-[#8d8d8d]">
+        <p className="pt-1 text-sm leading-5 tracking-[-0.1504px] text-[#8d8d8d]">
           Great design is invisible. It guides users without them ever noticing.
         </p>
       </div>
@@ -234,22 +234,22 @@ export default function WorkIntro() {
   return (
     <section className="flex w-full flex-col items-center pt-[111px]">
       <Reveal>
-        <h2 className="pb-2 text-center font-display text-[30px] font-semibold leading-[38px] tracking-[-0.23px] text-[#202020]">
+        <h2 className="pb-2 text-center font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
           What Makes me a exceptional designer?
         </h2>
       </Reveal>
 
       <Reveal delay={80}>
-        <p className="max-w-[680px] text-center text-lg leading-[27px] tracking-[-0.44px] text-black">
+        <p className="max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
           I think <em className="font-serif font-semibold italic">a lot</em> about what makes an interface feel great.
         </p>
       </Reveal>
-      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[27px] tracking-[-0.44px] text-black">
+      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         When you go from using a good product to a great one, you can{' '}
         <em className="font-serif italic">feel</em> the difference. It's often hard to point to what makes it
         though.
       </p>
-      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[27px] tracking-[-0.44px] text-black">
+      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         It's usually not a single thing, but instead a lot of small things that add up.
       </p>
 
@@ -304,15 +304,15 @@ export default function WorkIntro() {
       </div>
 
       <Reveal className="w-full">
-      <p className="mt-[24px] w-full text-center text-lg leading-[28px] tracking-[-0.44px] text-black">
+      <p className="mt-[24px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         In the age of artificial intelligence, shipping fast is no longer an advantage. When anything can be
         replicated in minutes, just building something <em className="font-serif italic">isn't</em> enough.
       </p>
-      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.44px] text-black">
+      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         Products that are going to stand out and last are those that are built extremely well, with intent and
         extraordinary <em className="font-serif italic">care</em>.
       </p>
-      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.44px] text-black">
+      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         That's what <em className="font-serif italic">Interfaces</em> focuses on.
       </p>
       </Reveal>

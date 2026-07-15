@@ -109,7 +109,7 @@ export default function Bio() {
           </div>
         </div></Reveal>
 
-        <p className="mt-[39px] max-w-[470px] text-center text-[17px] leading-[25px] tracking-[-0.34px] text-black">
+        <p className="mt-[39px] max-w-[470px] text-center text-[20px] leading-[30px] tracking-[-0.4px] text-black">
           Been designing AI-native fintech and automation products for the better part of a decade — always on a
           mission to make complex systems feel quietly intelligent.
         </p>
@@ -119,7 +119,7 @@ export default function Bio() {
         {timeline.map((row) => (
           <li
             key={row.role}
-            className="grid grid-cols-3 items-center gap-8 border-b border-black/10 py-3 text-xs leading-[17px]"
+            className="grid grid-cols-3 items-center gap-8 border-b border-black/10 py-3 text-xs leading-[18px]"
           >
             <span className="text-left text-black">{row.role}</span>
             <span className="text-left text-black/50">{row.company}</span>

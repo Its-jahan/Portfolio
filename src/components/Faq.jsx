@@ -22,7 +22,7 @@ export default function Faq() {
             onClick={() => setOpen(open === i ? null : i)}
             className="flex items-center justify-between border-b border-dashed border-[#e8e8e8] py-[13px] text-left last:border-b-0"
           >
-            <span className="text-[17px] font-normal leading-[25px] tracking-[-0.4px] text-[#2e2e2e]">{question}</span>
+            <span className="text-[18px] font-medium leading-[28px] tracking-[-0.4395px] text-[#2e2e2e]">{question}</span>
             <img
               src={faqIcon}
               alt=""

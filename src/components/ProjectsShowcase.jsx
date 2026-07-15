@@ -50,7 +50,7 @@ export default function ProjectsShowcase() {
             willChange: 'transform, opacity, filter',
           }}
         >
-          <h2 className="whitespace-nowrap font-display text-[32px] leading-[40px] tracking-[-0.2297px] text-[#202020]">
+          <h2 className="whitespace-nowrap font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
             Some of my most recent projects
           </h2>
           <p className="max-w-[365px] text-[15px] font-normal leading-[18px] text-[#404040]">
