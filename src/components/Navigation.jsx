@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 import headshot from '../assets/headshot.png'
 import { EASE } from './motion'
 
-const links = ['Work', 'Services', 'Pricing', 'Blog']
+const links = [
+  { name: 'Work', href: '#work' },
+  { name: 'Services', href: '#services' },
+  { name: 'Bio', href: '#bio' },
+  { name: 'FAQ', href: '#faq' },
+]
 
 export default function Navigation() {
   // compact once the hero section has been scrolled past
@@ -56,12 +61,12 @@ export default function Navigation() {
             >
               {links.map((link) => (
                 <a
-                  key={link}
-                  href="#"
+                  key={link.name}
+                  href={link.href}
                   tabIndex={compact ? -1 : 0}
-                  className="whitespace-nowrap font-satoshi text-[14px] font-bold leading-[15.68px] tracking-[-0.14px] text-black"
+                  className="whitespace-nowrap font-inter text-[14px] font-medium leading-[15.68px] tracking-[-0.14px] text-black"
                 >
-                  {link}
+                  {link.name}
                 </a>
               ))}
             </div>

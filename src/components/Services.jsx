@@ -30,7 +30,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="flex w-full flex-col items-center gap-[26px]">
+    <section id="services" className="flex w-full flex-col items-center gap-[26px]">
       <Reveal><div className="flex flex-col items-center text-center">
         <h2 className="font-display text-[32px] font-medium leading-10 tracking-[-0.2297px] text-[#202020]">
           My capabilities that fulfill all your wishes

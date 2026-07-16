@@ -470,7 +470,7 @@ export default function WorkIntro() {
   const prev = () => setIdx((i) => Math.max(0, i - 1))
   const next = () => setIdx((i) => Math.min(SLIDES.length - 1, i + 1))
   return (
-    <section className="flex w-full flex-col items-center pt-[111px]">
+    <section id="work" className="flex w-full flex-col items-center pt-[111px]">
       <Reveal>
         <h2 className="pb-[21px] text-center font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
           What Makes me a exceptional designer?

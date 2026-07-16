@@ -95,7 +95,7 @@ function StatueGlitch() {
 
 export default function Bio() {
   return (
-    <section className="flex w-full flex-col items-center">
+    <section id="bio" className="flex w-full flex-col items-center">
       <Reveal blur={14} y={34} className="w-full flex justify-center">
         <StatueGlitch />
       </Reveal>

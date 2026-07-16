@@ -25,7 +25,7 @@ export default function Faq() {
   const [open, setOpen] = useState(null)
 
   return (
-    <section className="mx-auto flex w-full max-w-[573px] flex-col">
+    <section id="faq" className="mx-auto flex w-full max-w-[573px] flex-col">
       <div className="flex w-full flex-col">
         {faqs.map((item, i) => {
           const isOpen = open === i
