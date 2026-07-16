@@ -182,7 +182,7 @@ export default function ProjectsShowcase() {
   // taller than the space under the heading, so its bottom crops past the
   // fold (immersive, like the reference). The reveal shrinks it just enough
   // to bring the whole mockup into view, springing as it settles.
-  const DEVICE_TOP = 214 // px from the viewport top (clears the heading + CTA)
+  const DEVICE_TOP = 292 // px from the viewport top (heading at 148 + its height)
   const deviceW = Math.min(vp.w - 80, 1760)
   const naturalH = deviceW / ASPECT
   const availH = vp.h - DEVICE_TOP - 40
@@ -202,7 +202,7 @@ export default function ProjectsShowcase() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
         <div
-          className="absolute left-1/2 top-[70px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
+          className="absolute left-1/2 top-[148px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
           style={{
             opacity: headT,
             transform: headT < 1 ? `translateY(${(1 - headT) * 24}px)` : undefined,
@@ -226,7 +226,12 @@ export default function ProjectsShowcase() {
 
         <div className="absolute left-1/2" style={{ top: `${DEVICE_TOP}px`, ...deviceStyle }}>
           <div className="relative">
-            <img src={mockupScreen} alt="" className="block w-full select-none rounded-[22px]" draggable="false" />
+            <img
+              src={mockupScreen}
+              alt=""
+              className="block w-full select-none rounded-[24px] border-[5px] border-black"
+              draggable="false"
+            />
 
             {/* TrueDepth camera housing — count on the right, lens centered */}
             <div
