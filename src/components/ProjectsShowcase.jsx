@@ -1,12 +1,16 @@
 import { useEffect, useRef } from 'react'
 import mockupScreen from '../assets/mockup-screen.jpg'
-import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01, SPRING } from './motion'
+import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01 } from './motion'
 
-/* My three most-loved works. Each appears as a window on the laptop
-   screen, then genie-minimizes up behind the top-center notch (macOS
-   minimize, into the notch). After each one lands, the Dynamic-Island
-   counter beside the notch pops and counts the collected works (1..3).
-   Placeholder content for now — swap the WORKS previews with real shots. */
+/* My three most-loved works, shown on a device that behaves like a real
+   Apple product page:
+   1. the device rises in, zoomed/cropped for an immersive feel;
+   2. works one & two genie-minimize up behind the TrueDepth camera, which
+      counts them on the right of the housing (1 → 2);
+   3. work three flies in with a spring and STAYS on the desktop (→ 3);
+   4. the cropped device springs out to reveal the full mockup, framed with
+      a 40px margin.
+   Placeholder work previews for now — swap with real shots later. */
 
 const WORKS = [
   {
@@ -15,6 +19,7 @@ const WORKS = [
     tag: 'Product Design',
     tint: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 60%, #ede9fe 100%)',
     accent: '#4f46e5',
+    mode: 'genie',
   },
   {
     id: '02',
@@ -22,6 +27,7 @@ const WORKS = [
     tag: 'Systems',
     tint: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #ccfbf1 100%)',
     accent: '#059669',
+    mode: 'genie',
   },
   {
     id: '03',
@@ -29,11 +35,17 @@ const WORKS = [
     tag: 'iOS · Product',
     tint: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 60%, #ffedd5 100%)',
     accent: '#e11d48',
+    mode: 'stay',
   },
 ]
 
-/* genie silhouette: the window necks toward the top-center, curving in
-   like the macOS genie warp. pinch 0 = rectangle, 1 = pinched to a spout. */
+const ASPECT = 2.169 // mockup-screen.jpg width / height
+
+// spring-ish overshoot easings for the "alive" bounce
+const easeOutBack = (t, s = 1.70158) => 1 + (s + 1) * Math.pow(t - 1, 3) + s * Math.pow(t - 1, 2)
+
+/* genie silhouette: the window necks toward top-center like the macOS
+   genie warp. pinch 0 = rectangle, 1 = pinched to a spout. */
 function geniePolygon(pinch) {
   const N = 10
   const neck = (yf) => 50 * (1 - pinch * 0.95 * Math.pow(1 - yf, 2.2))
@@ -43,40 +55,15 @@ function geniePolygon(pinch) {
   return `polygon(${pts.map(([x, y]) => `${x.toFixed(2)}% ${y.toFixed(2)}%`).join(', ')})`
 }
 
-/* A polished placeholder project window: chrome bar + a faux app preview
-   (hero block, content rows) so it reads as a real work, not a blob. */
-function WorkWindow({ work, appearT, genieT, dy }) {
-  const pinch = easeOut(seg(genieT, 0, 0.55))
-  const rise = easeInOut(seg(genieT, 0.08, 1))
-  const squashY = 1 - 0.9 * rise
-  const squashX = 1 - 0.86 * rise
-  const fade = 1 - seg(genieT, 0.8, 1)
-  const inT = easeOut(appearT)
-
-  const style = {
-    opacity: Math.min(inT, fade),
-    clipPath: genieT > 0.001 ? geniePolygon(pinch) : undefined,
-    transform:
-      genieT > 0.001
-        ? `translateY(${rise * dy}px) scale(${squashX}, ${squashY})`
-        : `translateY(${(1 - inT) * 30}px) scale(${0.95 + inT * 0.05})`,
-    transformOrigin: 'center top',
-    willChange: genieT > 0.001 || inT < 1 ? 'transform, opacity, clip-path' : 'auto',
-  }
-
+function WorkCard({ work }) {
   return (
-    <div
-      className="absolute inset-0 overflow-hidden rounded-[18px] bg-white shadow-[0_30px_70px_-20px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,0,0,0.06)]"
-      style={style}
-    >
-      {/* window chrome */}
+    <div className="absolute inset-0 overflow-hidden rounded-[18px] bg-white shadow-[0_30px_70px_-20px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,0,0,0.06)]">
       <div className="flex h-9 items-center gap-1.5 border-b border-black/5 bg-[#f7f7f8] px-4">
         <span className="size-2.5 rounded-full bg-[#ff5f57]" />
         <span className="size-2.5 rounded-full bg-[#febc2e]" />
         <span className="size-2.5 rounded-full bg-[#28c840]" />
         <span className="ml-3 font-satoshi text-[12px] font-bold tracking-[-0.12px] text-black/45">{work.name}</span>
       </div>
-      {/* faux preview */}
       <div className="flex h-[calc(100%-36px)] flex-col p-5">
         <div className="relative flex-1 overflow-hidden rounded-xl" style={{ background: work.tint }}>
           <span
@@ -111,11 +98,51 @@ function WorkWindow({ work, appearT, genieT, dy }) {
   )
 }
 
+function GenieWindow({ work, appearT, genieT, dyLocal }) {
+  const pinch = easeOut(seg(genieT, 0, 0.55))
+  const rise = easeInOut(seg(genieT, 0.08, 1))
+  const squashY = 1 - 0.9 * rise
+  const squashX = 1 - 0.86 * rise
+  const opacity = Math.min(easeOut(appearT), 1 - seg(genieT, 0.82, 1))
+  if (opacity <= 0.001) return null
+  const style = {
+    opacity,
+    clipPath: genieT > 0.001 ? geniePolygon(pinch) : undefined,
+    transform:
+      genieT > 0.001
+        ? `translateY(${rise * dyLocal}px) scale(${squashX}, ${squashY})`
+        : `translateY(${(1 - easeOut(appearT)) * 30}px) scale(${0.95 + easeOut(appearT) * 0.05})`,
+    transformOrigin: 'center top',
+    willChange: 'transform, opacity, clip-path',
+  }
+  return (
+    <div className="absolute inset-0" style={style}>
+      <WorkCard work={work} />
+    </div>
+  )
+}
+
+function StayWindow({ work, arriveT }) {
+  if (arriveT <= 0.001) return null
+  // flies up from below and springs into place, then stays
+  const b = easeOutBack(clamp01(arriveT), 1.9)
+  const ty = (1 - b) * 120
+  const opacity = clamp01(arriveT * 2)
+  return (
+    <div
+      className="absolute inset-0"
+      style={{ opacity, transform: `translateY(${ty}px) scale(${0.96 + 0.04 * clamp01(arriveT * 1.4)})`, transformOrigin: 'center bottom', willChange: 'transform, opacity' }}
+    >
+      <WorkCard work={work} />
+    </div>
+  )
+}
+
 export default function ProjectsShowcase() {
   const wrapRef = useRef(null)
   const notchRef = useRef(null)
   const holderRef = useRef(null)
-  const geom = useRef({ dy: -360 })
+  const geom = useRef({ dy: -320 })
   const p = useScrollProgress(wrapRef)
 
   useEffect(() => {
@@ -123,51 +150,56 @@ export default function ProjectsShowcase() {
       const n = notchRef.current
       const h = holderRef.current
       if (!n || !h) return
-      const nr = n.getBoundingClientRect()
-      const hr = h.getBoundingClientRect()
-      if (hr.height > 0) geom.current.dy = nr.top + nr.height / 2 - hr.top
+      // measure in the device's own (unscaled) layout space via offsets so
+      // the genie target stays correct regardless of the device zoom scale
+      const dy = n.offsetTop + n.offsetHeight / 2 - h.offsetTop
+      if (Number.isFinite(dy)) geom.current.dy = dy
     })
   }, [])
 
-  const headT = easeOut(seg(p, 0.0, 0.14))
-  const deviceT = easeOut(seg(p, 0.05, 0.3))
+  // ── timeline ────────────────────────────────────────────────────────
+  const headT = easeOut(seg(p, 0.0, 0.12))
+  const enter = easeOut(seg(p, 0.04, 0.24)) // device rises + zooms in
 
-  // Phase 2 — works genie into the notch, one after another
-  const BASE = 0.34
-  const SPAN = 0.2
-  const phases = WORKS.map((_, i) => {
-    const w0 = BASE + i * SPAN
-    return {
-      appearT: i === 0 ? deviceT : easeOut(seg(p, w0 - 0.04, w0 + 0.02)),
-      genieT: easeInOut(seg(p, w0 + 0.06, w0 + SPAN - 0.02)),
-    }
-  })
-  const count = phases.filter((ph) => ph.genieT >= 1).length
-  const active = phases.findIndex((ph) => ph.genieT < 1)
+  const g0 = easeInOut(seg(p, 0.3, 0.44))
+  const a1 = easeOut(seg(p, 0.44, 0.5))
+  const g1 = easeInOut(seg(p, 0.5, 0.64))
+  const a2 = seg(p, 0.64, 0.78) // work three arrives and stays
 
+  const reveal = easeOutBack(seg(p, 0.82, 1.0), 1.5) // zoom-out to full mockup, bounce
+
+  const count = (g0 >= 1 ? 1 : 0) + (g1 >= 1 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
+
+  // device zoom: enters to a cropped 1.28x, then springs back to a full-fit 1.0
+  const ZOOM = 1.28
+  const zoomIn = 0.92 + (ZOOM - 0.92) * enter
+  const scale = zoomIn * (1 - (1 - 1 / ZOOM) * reveal)
   const deviceStyle = {
-    transform: `translateY(${(1 - deviceT) * 240}px) scale(${0.9 + deviceT * 0.1})`,
-    opacity: Math.min(1, deviceT * 1.6),
-    filter: deviceT < 1 ? `blur(${(1 - deviceT) * 12}px)` : undefined,
-    transformOrigin: 'center top',
-    willChange: deviceT < 1 ? 'transform, opacity, filter' : 'auto',
+    transform: `translateY(${(1 - enter) * 160}px) scale(${scale})`,
+    opacity: Math.min(1, enter * 1.7),
+    filter: enter < 1 ? `blur(${(1 - enter) * 12}px)` : undefined,
+    transformOrigin: 'center center',
+    // fit the full mockup within a 40px margin on every side (aspect 2.169)
+    width: 'min(calc(100vw - 80px), calc((100vh - 80px) * 2.169), 1500px)',
+    willChange: 'transform, opacity, filter',
   }
 
+  // heading leads, then fades as the device becomes the hero
+  const headingOpacity = headT * (1 - clamp01(seg(p, 0.2, 0.34)))
+
   return (
-    <section ref={wrapRef} className="relative w-full" style={{ height: '380vh' }}>
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden pt-[86px]">
+    <section ref={wrapRef} className="relative w-full" style={{ height: '440vh' }}>
+      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+        {/* heading leads the section, then dissolves as the device takes over */}
         <div
-          className="flex max-w-[445px] flex-col items-center text-center"
-          style={
-            headT < 1
-              ? {
-                  opacity: headT,
-                  transform: `translateY(${(1 - headT) * 30}px)`,
-                  filter: `blur(${(1 - headT) * 8}px)`,
-                  willChange: 'transform, opacity, filter',
-                }
-              : undefined
-          }
+          className="absolute left-1/2 top-[74px] z-10 flex max-w-[445px] -translate-x-1/2 flex-col items-center text-center"
+          style={{
+            opacity: headingOpacity,
+            transform: headT < 1 ? `translateY(${(1 - headT) * 30}px)` : undefined,
+            filter: headT < 1 ? `blur(${(1 - headT) * 8}px)` : undefined,
+            pointerEvents: headingOpacity < 0.5 ? 'none' : undefined,
+            willChange: 'opacity',
+          }}
         >
           <h2 className="whitespace-nowrap font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
             Some of my most recent projects
@@ -183,59 +215,43 @@ export default function ProjectsShowcase() {
           </a>
         </div>
 
-        {/* Device mockup — fills the viewport with a 40px margin. Works
-            genie up behind the enlarged TrueDepth camera, which shows the
-            running count of collected works. */}
-        <div
-          className="relative mt-[22px]"
-          style={{
-            ...deviceStyle,
-            // 40px side margin, but never taller than the remaining viewport.
-            // 2.034 is the mockup's width/height aspect ratio.
-            width: 'min(calc(100vw - 80px), calc((100vh - 300px) * 2.034), 1500px)',
-          }}
-        >
+        <div className="relative" style={deviceStyle}>
           <div className="relative">
-            <img src={mockupScreen} alt="" className="block w-full select-none" draggable="false" />
+            <img src={mockupScreen} alt="" className="block w-full select-none rounded-[22px]" draggable="false" />
 
-            {/* Enlarged TrueDepth camera housing (replaces the baked notch);
-                sits above the windows so they slide behind it as they
-                minimize, and displays the collected-works count. */}
+            {/* TrueDepth camera housing — count on the right, lens centered */}
             <div
               ref={notchRef}
-              className="absolute left-1/2 top-0 z-30 flex h-[6.2%] min-h-[30px] w-[13.5%] min-w-[128px] -translate-x-1/2 items-center justify-center gap-[7px] rounded-b-[16px] bg-black px-3 shadow-[0_3px_12px_rgba(0,0,0,0.45)]"
+              className="absolute left-1/2 top-0 z-30 flex h-[6.4%] min-h-[32px] w-[15%] min-w-[150px] -translate-x-1/2 items-center rounded-b-[16px] bg-black pl-4 pr-3 shadow-[0_3px_14px_rgba(0,0,0,0.5)]"
             >
-              {/* camera lens */}
-              <span className="relative grid size-[13px] place-items-center rounded-full bg-[#0b0b12] ring-1 ring-white/10">
-                <span className="size-[5px] rounded-full bg-[#1a2b52]" />
-                <span className="absolute right-[3px] top-[2.5px] size-[2px] rounded-full bg-[#4a6fd8]/80" />
+              {/* camera lens (centered) */}
+              <span className="absolute left-1/2 top-1/2 grid size-[13px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#0b0b12] ring-1 ring-white/10">
+                <span className="size-[5px] rounded-full bg-[#16224a]" />
+                <span className="absolute right-[3px] top-[2.5px] size-[2px] rounded-full bg-[#5f83e6]" />
               </span>
-              {/* running work count */}
+              {/* running count, pushed to the right */}
               <span
                 key={count}
-                className={`flex items-baseline gap-[3px] ${count > 0 ? 'island-pop' : ''}`}
-                style={{ opacity: count > 0 ? 1 : 0.35, transition: 'opacity 240ms ease' }}
+                className={`ml-auto flex items-baseline gap-[3px] ${count > 0 ? 'island-pop' : ''}`}
+                style={{ opacity: count > 0 ? 1 : 0.3, transition: 'opacity 220ms ease' }}
                 aria-live="polite"
-                aria-label={`${count} of ${WORKS.length} works collected`}
+                aria-label={`${count} of ${WORKS.length} works`}
               >
                 <span
-                  className="font-satoshi text-[15px] font-bold leading-none text-white"
+                  className="font-satoshi text-[16px] font-bold leading-none"
                   style={{ color: count > 0 ? WORKS[Math.min(count, WORKS.length) - 1].accent : '#fff' }}
                 >
                   {count}
                 </span>
-                <span className="font-satoshi text-[11px] font-bold leading-none text-white/55">/{WORKS.length}</span>
+                <span className="font-satoshi text-[11px] font-bold leading-none text-white/50">/{WORKS.length}</span>
               </span>
             </div>
 
-            {/* work windows layered over the screen (centered, not full-bleed) */}
-            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[60%] w-[38%] -translate-x-1/2">
-              {WORKS.map((w, i) => {
-                if (active === -1 ? i !== WORKS.length - 1 : i > active) return null
-                if (active !== -1 && i < active) return null
-                const ph = phases[i]
-                return <WorkWindow key={w.id} work={w} appearT={ph.appearT} genieT={ph.genieT} dy={geom.current.dy} />
-              })}
+            {/* work windows over the desktop */}
+            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[58%] w-[38%] -translate-x-1/2">
+              <GenieWindow work={WORKS[0]} appearT={enter} genieT={g0} dyLocal={geom.current.dy} />
+              <GenieWindow work={WORKS[1]} appearT={a1} genieT={g1} dyLocal={geom.current.dy} />
+              <StayWindow work={WORKS[2]} arriveT={a2} />
             </div>
           </div>
         </div>
