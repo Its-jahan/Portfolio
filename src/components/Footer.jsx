@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import signature from '../assets/signature.png'
+import signature from '../assets/signature.svg'
 import { Reveal } from './motion'
 
 const WORD = 'JAHAN'
@@ -401,7 +401,7 @@ export default function Footer() {
         <span className="rounded-full bg-[#f0f0f0] px-3 py-1.5 text-[14px] font-medium tracking-[-0.1504px] text-[#8d8d8d]">
           v<span className="text-[#646464]">2.0.0</span>
         </span>
-        <img src={signature} alt="Jahan" className="h-[40px] w-auto" />
+        <img src={signature} alt="Jahan" className="h-[60px] w-auto mix-blend-multiply" />
       </div></Reveal>
       <div
         ref={holderRef}
