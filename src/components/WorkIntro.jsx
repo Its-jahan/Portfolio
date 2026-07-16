@@ -234,7 +234,7 @@ export default function WorkIntro() {
   return (
     <section className="flex w-full flex-col items-center pt-[111px]">
       <Reveal>
-        <h2 className="pb-2 text-center font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
+        <h2 className="pb-[21px] text-center font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
           What Makes me a exceptional designer?
         </h2>
       </Reveal>
@@ -244,18 +244,18 @@ export default function WorkIntro() {
           I think <em className="font-serif font-semibold italic">a lot</em> about what makes an interface feel great.
         </p>
       </Reveal>
-      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mt-[22px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         When you go from using a good product to a great one, you can{' '}
         <em className="font-serif italic">feel</em> the difference. It's often hard to point to what makes it
         though.
       </p>
-      <p className="mt-[15px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mt-[22px] max-w-[680px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         It's usually not a single thing, but instead a lot of small things that add up.
       </p>
 
       {/* Carousel: viewport clips at the column edges, neighbors peek ~80px */}
       <Reveal delay={120} className="w-full">
-      <div className="relative mt-[19px] w-full overflow-hidden">
+      <div className="relative mt-[30px] w-full overflow-hidden">
         <div
           className="flex w-max items-start gap-[14px]"
           style={{
@@ -282,7 +282,7 @@ export default function WorkIntro() {
 
       </Reveal>
 
-      <div className="mt-[26px] flex items-center justify-center gap-3">
+      <div className="mt-[32px] flex items-center justify-center gap-3">
         <button
           type="button"
           aria-label="Previous slide"
@@ -304,15 +304,15 @@ export default function WorkIntro() {
       </div>
 
       <Reveal className="w-full">
-      <p className="mt-[24px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mt-[34px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         In the age of artificial intelligence, shipping fast is no longer an advantage. When anything can be
         replicated in minutes, just building something <em className="font-serif italic">isn't</em> enough.
       </p>
-      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mt-[20px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         Products that are going to stand out and last are those that are built extremely well, with intent and
         extraordinary <em className="font-serif italic">care</em>.
       </p>
-      <p className="mt-[19px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mt-[20px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         That's what <em className="font-serif italic">Interfaces</em> focuses on.
       </p>
       </Reveal>
