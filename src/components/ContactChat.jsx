@@ -168,8 +168,9 @@ export default function ContactChat() {
 
   const N = steps.length
   const still = reducedMotion()
-  // leave a little headroom at both ends of the scrub
-  const stepFloat = p * (N + 0.8) - 0.3
+  // start with the first message already on screen (offset +1) so scrolling
+  // into the section shows the conversation immediately, not a blank pane
+  const stepFloat = p * (N - 0.2) + 1.0
 
   return (
     <section id="contact" ref={wrapRef} className="relative w-full" style={{ height: still ? 'auto' : `calc(100vh + ${N * 105}px)` }}>

@@ -166,15 +166,15 @@ export default function ProjectsShowcase() {
   }, [])
 
   // ── timeline ────────────────────────────────────────────────────────
-  const headT = easeOut(seg(p, 0.0, 0.12))
-  const enter = easeOut(seg(p, 0.04, 0.24)) // device rises + zooms in
+  const headT = easeOut(seg(p, 0.0, 0.08))
+  const enter = easeOut(seg(p, 0.0, 0.16)) // device rises + zooms in from the first pixel
 
-  const g0 = easeInOut(seg(p, 0.3, 0.44))
-  const a1 = easeOut(seg(p, 0.44, 0.5))
-  const g1 = easeInOut(seg(p, 0.5, 0.64))
-  const a2 = seg(p, 0.64, 0.78) // work three arrives and stays
+  const g0 = easeInOut(seg(p, 0.26, 0.42))
+  const a1 = easeOut(seg(p, 0.42, 0.48))
+  const g1 = easeInOut(seg(p, 0.5, 0.66))
+  const a2 = seg(p, 0.66, 0.8) // work three arrives and stays
 
-  const reveal = easeOutBack(seg(p, 0.82, 1.0), 1.4) // crop → full mockup, spring
+  const reveal = easeOutBack(seg(p, 0.84, 1.0), 1.4) // crop → full mockup, spring
 
   const count = (g0 >= 1 ? 1 : 0) + (g1 >= 1 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
 
@@ -189,16 +189,18 @@ export default function ProjectsShowcase() {
   const fitScale = clamp01(availH / naturalH) || 1
   const scale = 1 - (1 - fitScale) * reveal
   const deviceStyle = {
-    transform: `translateX(-50%) translateY(${(1 - enter) * 120}px) scale(${scale})`,
-    opacity: Math.min(1, enter * 1.7),
-    filter: enter < 1 ? `blur(${(1 - enter) * 10}px)` : undefined,
+    // stays fully opaque so the mockup is on screen the instant the section
+    // scrolls in — the entrance reads through the slide-up + focus, no blank
+    transform: `translateX(-50%) translateY(${(1 - enter) * 90}px) scale(${scale})`,
+    opacity: 1,
+    filter: enter < 1 ? `blur(${(1 - enter) * 8}px)` : undefined,
     transformOrigin: 'center top',
     width: `${deviceW}px`,
     willChange: 'transform, opacity, filter',
   }
 
   return (
-    <section ref={wrapRef} className="relative w-full" style={{ height: '440vh' }}>
+    <section ref={wrapRef} className="relative w-full" style={{ height: '330vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
         <div
