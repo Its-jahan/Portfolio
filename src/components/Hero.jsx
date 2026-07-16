@@ -15,7 +15,7 @@ export default function Hero() {
       <Reveal once duration={950}><div className="flex w-full max-w-[680px] flex-col items-center text-center">
         {/* "Elevating" with the oklch color-code annotation */}
         <div className="relative inline-block">
-          <p className="whitespace-nowrap font-display text-[60px] leading-[58px] tracking-[-1.2363px] text-[#18181a]">
+          <p className="whitespace-nowrap font-display text-[60px] leading-[72px] tracking-[-1.2363px] text-[#18181a]">
             Elevating
           </p>
           <div className="absolute -left-[150px] top-0 flex -translate-y-full flex-col items-start pb-0">
@@ -32,11 +32,11 @@ export default function Hero() {
 
         {/* "Your brand, Engineering" with the boxed callout on Engineering */}
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <p className="whitespace-nowrap font-display text-[60px] font-medium leading-[58px] tracking-[-1.2363px] text-[#18181a]">
+          <p className="whitespace-nowrap font-display text-[60px] font-medium leading-[72px] tracking-[-1.2363px] text-[#18181a]">
             Your brand,
           </p>
           <span className="relative inline-block">
-            <p className="whitespace-nowrap font-display text-[60px] font-medium leading-[58px] tracking-[-1.2363px] text-[#18181a]">
+            <p className="whitespace-nowrap font-display text-[60px] font-medium leading-[72px] tracking-[-1.2363px] text-[#18181a]">
               Engineering
             </p>
             {/* "344 × 58" dimension label above the selection box */}
@@ -57,7 +57,7 @@ export default function Hero() {
 
         {/* "Design" with the font-name annotation */}
         <div className="relative inline-block">
-          <p className="whitespace-nowrap font-serif text-[60px] italic leading-[58px] tracking-[-1.5px] text-black">
+          <p className="whitespace-nowrap font-serif text-[60px] italic leading-[72px] tracking-[-1.5px] text-black">
             Design
           </p>
           <div className="absolute left-full top-1/2 flex -translate-y-1/2 items-center gap-5 pl-5">
