@@ -182,7 +182,7 @@ export default function ProjectsShowcase() {
   // taller than the space under the heading, so its bottom crops past the
   // fold (immersive, like the reference). The reveal shrinks it just enough
   // to bring the whole mockup into view, springing as it settles.
-  const DEVICE_TOP = 292 // px from the viewport top (heading at 148 + its height)
+  const DEVICE_TOP = 248 // px from the viewport top (heading at 88 + its height)
   const deviceW = Math.min(vp.w - 80, 1760)
   const naturalH = deviceW / ASPECT
   const availH = vp.h - DEVICE_TOP - 40
@@ -202,7 +202,7 @@ export default function ProjectsShowcase() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
         <div
-          className="absolute left-1/2 top-[148px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
+          className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
           style={{
             opacity: headT,
             transform: headT < 1 ? `translateY(${(1 - headT) * 24}px)` : undefined,
@@ -213,7 +213,7 @@ export default function ProjectsShowcase() {
           <h2 className="whitespace-nowrap font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
             Some of my most recent projects
           </h2>
-          <p className="max-w-[365px] text-[15px] font-normal leading-[18px] text-[#404040]">
+          <p className="mt-4 max-w-[365px] text-[15px] font-normal leading-[18px] text-[#404040]">
             Across phones, desktops, browsers, clouds, and every surface where work actually happens.
           </p>
           <a
