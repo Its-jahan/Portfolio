@@ -313,7 +313,7 @@ export default function WorkIntro() {
         extraordinary <em className="font-serif italic">care</em>.
       </p>
       <p className="mx-auto mt-[20px] w-full max-w-[640px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
-        That's what <em className="font-serif italic">Interfaces</em> focuses on.
+        That's what <em className="font-serif italic">Amirhossein</em> focuses on.
       </p>
       </Reveal>
     </section>

@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { clamp01, reducedMotion } from './motion'
 
 /* bridge.surf-style scroll parallax: three columns of chat cards that
-   drift upward at different speeds while the page scrolls past them. */
+   drift upward at different speeds while the page scrolls past them.
+   Each card is a real exchange — a client asking or assigning work,
+   and Amirhossein answering. */
 
 function BubbleIn({ children }) {
   return (
@@ -16,15 +18,6 @@ function BubbleOut({ children }) {
   return (
     <div className="max-w-[85%] self-end rounded-2xl rounded-br-md bg-[#2b7fff] px-3.5 py-2 text-[13px] leading-[18px] tracking-[-0.1px] text-white">
       {children}
-    </div>
-  )
-}
-
-function AgentReply({ children }) {
-  return (
-    <div className="flex items-start gap-1.5 self-start pl-0.5 text-[13px] leading-[18px] tracking-[-0.1px] text-[#404040]">
-      <span className="mt-0.5 shrink-0 text-[11px]">✦</span>
-      <p>{children}</p>
     </div>
   )
 }
@@ -55,7 +48,7 @@ function FileRow({ name, isNew }) {
   )
 }
 
-function AudioBar() {
+function AudioBar({ label }) {
   return (
     <div className="flex items-center gap-2 self-start rounded-full bg-[#f0f0f0] py-1.5 pl-1.5 pr-3">
       <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#2b7fff] text-[9px] text-white">▶</span>
@@ -64,7 +57,7 @@ function AudioBar() {
           <span key={i} className="w-[2px] rounded-full bg-[#b9b9b9]" style={{ height: `${h}px` }} />
         ))}
       </span>
-      <span className="text-[10px] text-[#8d8d8d]">00:32</span>
+      <span className="text-[10px] text-[#8d8d8d]">{label}</span>
     </div>
   )
 }
@@ -84,17 +77,17 @@ const COLUMNS = [
     cards: [
       (
         <Card key="c1a">
-          <BubbleOut>Help me redesign our fintech dashboard — it feels cluttered.</BubbleOut>
-          <AgentReply>
-            I mapped your key flows first. Here is a concept that cuts the noise and keeps the numbers scannable.
-          </AgentReply>
+          <BubbleIn>Our fintech dashboard feels cluttered — can you take a pass at it?</BubbleIn>
+          <BubbleOut>
+            Mapped your key flows first, then cut the noise. The numbers are scannable again.
+          </BubbleOut>
           <FileChip name="Dashboard_v2.fig" note="1.2 MB" />
         </Card>
       ),
       (
         <Card key="c1b">
-          <BubbleIn>The PPT you created based on my work notes was perfect, thank you!</BubbleIn>
-          <BubbleOut>Glad it landed — want the same treatment for the investor deck?</BubbleOut>
+          <BubbleIn>The redesign landed perfectly with the board, thank you!</BubbleIn>
+          <BubbleOut>Glad it worked — want the same system carried into the investor deck?</BubbleOut>
         </Card>
       ),
     ],
@@ -105,17 +98,17 @@ const COLUMNS = [
     cards: [
       (
         <Card key="c2a">
-          <BubbleOut>Create a design system for our app so the team ships consistent UI.</BubbleOut>
-          <AgentReply>
-            I will audit the existing components, then deliver tokens, type scale, and a Figma library — walkthrough below.
-          </AgentReply>
-          <AudioBar />
+          <BubbleIn>We need a design system so the team stops shipping inconsistent UI.</BubbleIn>
+          <BubbleOut>
+            Audited every component, then delivered tokens, type scale, and a shared Figma library.
+          </BubbleOut>
+          <AudioBar label="Walkthrough · 00:32" />
         </Card>
       ),
       (
         <Card key="c2b">
-          <BubbleOut>Can you make the onboarding feel less like a form?</BubbleOut>
-          <AgentReply>Turned the six fields into a three-step conversation. Drop-off should fall sharply.</AgentReply>
+          <BubbleIn>Onboarding feels like filling out a form. Can it feel lighter?</BubbleIn>
+          <BubbleOut>Turned six fields into a three-step conversation — drop-off is already down.</BubbleOut>
           <FileChip name="Onboarding_flow.mp4" note="00:48" />
         </Card>
       ),
@@ -127,21 +120,21 @@ const COLUMNS = [
     cards: [
       (
         <Card key="c3a">
-          <BubbleOut>Help me organize the design files across our projects.</BubbleOut>
-          <AgentReply>I have organized your workspace for you.</AgentReply>
+          <BubbleIn>Can you help us organize the design files across projects? It's chaos.</BubbleIn>
+          <BubbleOut>Organized the whole workspace — here's what changed.</BubbleOut>
           <ul className="w-full rounded-xl border border-[#f0f0f0] bg-[#fcfcfc] px-3 py-1.5">
             <FileRow name="Brand guidelines" />
             <FileRow name="Tokens.json" isNew />
-            <FileRow name="Marketing site" />
-            <FileRow name="App icons — v3" isNew />
-            <FileRow name="Archive 2025" />
+            <FileRow name="Fintech app — v3" isNew />
+            <FileRow name="Automation flows" />
+            <FileRow name="Archive 2024" />
           </ul>
         </Card>
       ),
       (
         <Card key="c3b">
-          <BubbleIn>Users keep missing the export button…</BubbleIn>
-          <BubbleOut>Moved it into the primary toolbar and added a shortcut — testing it this week.</BubbleOut>
+          <BubbleIn>Users keep missing the export button on mobile.</BubbleIn>
+          <BubbleOut>Moved it into the primary toolbar with a shortcut — testing with users this week.</BubbleOut>
         </Card>
       ),
     ],

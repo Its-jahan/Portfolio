@@ -1,12 +1,24 @@
 import { useState } from 'react'
 import faqIcon from '../assets/faq-icon.svg'
-import { Reveal } from './motion'
+import { Reveal, EASE } from './motion'
 
-const questions = [
-  'Is this a course?',
-  'Is Interfaces a physical magazine?',
-  'What level of experience is this for?',
-  'Who is the magazine for?',
+const faqs = [
+  {
+    q: 'Do you take on freelance projects?',
+    a: 'Yes — I work with a small number of clients at a time, mostly fintech and automation products. Book a call and I\'ll tell you honestly if there\'s a fit.',
+  },
+  {
+    q: 'What does your process look like?',
+    a: 'Discovery first, then flows, then high-fidelity screens with a working prototype. You\'ll see progress every few days, not just once at the end.',
+  },
+  {
+    q: 'What tools do you design with?',
+    a: 'Figma for everything static, After Effects for motion, and Claude, Codex and Gemini to reason through complex product logic and prototype faster.',
+  },
+  {
+    q: 'How much experience do you have?',
+    a: 'About a decade shipping fintech and automation platforms — from design-lead roles at agencies to running my own practice today.',
+  },
 ]
 
 export default function Faq() {
@@ -15,23 +27,41 @@ export default function Faq() {
   return (
     <section className="mx-auto flex w-full max-w-[573px] flex-col">
       <div className="flex w-full flex-col">
-        {questions.map((question, i) => (
-          <Reveal key={question} delay={i * 90}>
-          <button
-            type="button"
-            onClick={() => setOpen(open === i ? null : i)}
-            className="flex items-center justify-between border-b border-dashed border-[#e8e8e8] py-[13px] text-left last:border-b-0"
-          >
-            <span className="text-[18px] font-medium leading-[28px] tracking-[-0.4395px] text-[#2e2e2e]">{question}</span>
-            <img
-              src={faqIcon}
-              alt=""
-              className="size-[18px] transition-transform"
-              style={{ transform: open === i ? 'rotate(45deg)' : 'none' }}
-            />
-          </button>
-          </Reveal>
-        ))}
+        {faqs.map((item, i) => {
+          const isOpen = open === i
+          return (
+            <Reveal key={item.q} delay={i * 90}>
+              <div className="border-b border-dashed border-[#e8e8e8] last:border-b-0">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-4 py-[13px] text-left"
+                >
+                  <span className="text-[18px] font-medium leading-[28px] tracking-[-0.4395px] text-[#2e2e2e]">
+                    {item.q}
+                  </span>
+                  <img
+                    src={faqIcon}
+                    alt=""
+                    className="size-[18px] shrink-0 transition-transform duration-300"
+                    style={{ transform: isOpen ? 'rotate(45deg)' : 'none', transitionTimingFunction: EASE }}
+                  />
+                </button>
+                <div
+                  className="grid transition-[grid-template-rows] duration-300"
+                  style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', transitionTimingFunction: EASE }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="max-w-[490px] pb-[18px] pr-8 text-[15px] leading-[22px] tracking-[-0.2px] text-[#6c6c6c]">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          )
+        })}
       </div>
     </section>
   )

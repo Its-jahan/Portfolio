@@ -8,23 +8,23 @@ import { Reveal } from './motion'
 const services = [
   {
     image: productDesign,
-    title: 'Product Design',
-    body: 'End-to-end design of fintech platforms and automation interfaces. Intricate financial requirements translated into user-centric flows with modular, scalable component libraries.',
+    title: 'Fintech & Automation Design',
+    body: 'A decade designing dashboards, onboarding, and automation flows for fintech platforms — from design-lead roles at Ace agency and CreatorCore to my own practice today.',
   },
   {
-    title: 'AI In charge for speed',
-    body: 'An AI-first practice — using Claude, Codex and Gemini to reason through complex product logic, build functional prototypes, and design the next generation of automation products.',
+    title: 'AI-Augmented Workflow',
+    body: 'Claude, Codex, and Gemini as daily tools — reasoning through complex product logic, building working prototypes, and shipping automation products faster than a traditional handoff.',
     isAi: true,
   },
   {
     image: motion,
-    title: 'Motion Design',
-    body: 'Advanced motion prototypes that simulate real interactions — built in After Effects and shipped to production with precision micro-interactions that reduce the design-dev gap.',
+    title: 'Motion & Prototyping',
+    body: 'Interaction-accurate prototypes built in Figma and After Effects, so engineering never has to guess the timing, easing, or state behind a transition.',
   },
   {
     image: accessibility,
     title: 'Accessibility',
-    body: 'Inclusive products compliant with WCAG 2.1 AA — a key differentiator for EU clients and enterprise SaaS. Contrast, focus states and keyboard navigation built into every system.',
+    body: 'WCAG 2.1 AA compliant systems by default — contrast, focus states, and keyboard navigation considered from the first wireframe, not bolted on at the end.',
   },
 ]
 
