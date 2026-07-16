@@ -102,7 +102,7 @@ export default function Bio() {
 
       <div className="mt-[28px] flex flex-col items-center">
         <Reveal delay={100}><div className="flex items-center gap-3">
-          <img src={waxSealBadge} alt="" className="size-[68px] shrink-0 drop-shadow-[0_5px_22px_rgba(129,38,42,0.14)]" />
+          <img src={waxSealBadge} alt="" className="size-[68px] shrink-0 mix-blend-multiply" />
           <div className="text-center leading-6">
             <p className="font-satoshi text-xs font-medium text-black opacity-40">Figma Expert</p>
             <p className="font-serif text-base italic text-neutral-800">Amirhossein Jahangir</p>

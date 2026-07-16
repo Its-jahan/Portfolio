@@ -10,11 +10,11 @@ export default function Testimonial() {
         exceptional creativity and sharp attention to detail."
       </blockquote></Reveal>
       <Reveal delay={120}><figure className="flex items-center gap-3">
-        <img src={avatar} alt="Ali" className="size-[33px] rounded-full object-cover" />
+        <img src={avatar} alt="Nic campline" className="size-[33px] rounded-full object-cover" />
         <figcaption className="flex flex-col gap-1.5">
-          <p className="text-[14px] leading-[15.68px] tracking-[-0.14px] text-black">Ali</p>
+          <p className="text-[14px] leading-[15.68px] tracking-[-0.14px] text-black">Nic campline</p>
           <p className="text-[12px] font-medium leading-[13.44px] tracking-[-0.12px] text-[#545454]">
-            CEO of micro1
+            CEO and co founder of Creator Core
           </p>
         </figcaption>
       </figure></Reveal>
