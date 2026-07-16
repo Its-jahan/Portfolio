@@ -138,7 +138,7 @@ export default function ContactChat() {
       typingless: true,
       node: (
         <a
-          href="https://www.linkedin.com"
+          href="https://www.linkedin.com/in/jahan-amir/"
           target="_blank"
           rel="noreferrer"
           className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-hanken text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
@@ -153,7 +153,7 @@ export default function ContactChat() {
       typingless: true,
       node: (
         <a
-          href="https://github.com"
+          href="https://github.com/Its-jahan"
           target="_blank"
           rel="noreferrer"
           className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-hanken text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
