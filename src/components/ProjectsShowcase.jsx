@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import mockupScreen from '../assets/mockup-screen.jpg'
 import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01 } from './motion'
 
@@ -144,6 +144,14 @@ export default function ProjectsShowcase() {
   const holderRef = useRef(null)
   const geom = useRef({ dy: -320 })
   const p = useScrollProgress(wrapRef)
+  const [vp, setVp] = useState({ w: 1280, h: 800 })
+
+  useEffect(() => {
+    const onResize = () => setVp({ w: window.innerWidth, h: window.innerHeight })
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   useEffect(() => {
     return subscribeScroll(() => {
@@ -166,38 +174,39 @@ export default function ProjectsShowcase() {
   const g1 = easeInOut(seg(p, 0.5, 0.64))
   const a2 = seg(p, 0.64, 0.78) // work three arrives and stays
 
-  const reveal = easeOutBack(seg(p, 0.82, 1.0), 1.5) // zoom-out to full mockup, bounce
+  const reveal = easeOutBack(seg(p, 0.82, 1.0), 1.4) // crop → full mockup, spring
 
   const count = (g0 >= 1 ? 1 : 0) + (g1 >= 1 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
 
-  // device zoom: enters to a cropped 1.28x, then springs back to a full-fit 1.0
-  const ZOOM = 1.28
-  const zoomIn = 0.92 + (ZOOM - 0.92) * enter
-  const scale = zoomIn * (1 - (1 - 1 / ZOOM) * reveal)
+  // The device fills the width with a 40px side margin. At that width it's
+  // taller than the space under the heading, so its bottom crops past the
+  // fold (immersive, like the reference). The reveal shrinks it just enough
+  // to bring the whole mockup into view, springing as it settles.
+  const DEVICE_TOP = 214 // px from the viewport top (clears the heading + CTA)
+  const deviceW = Math.min(vp.w - 80, 1760)
+  const naturalH = deviceW / ASPECT
+  const availH = vp.h - DEVICE_TOP - 40
+  const fitScale = clamp01(availH / naturalH) || 1
+  const scale = 1 - (1 - fitScale) * reveal
   const deviceStyle = {
-    transform: `translateY(${(1 - enter) * 160}px) scale(${scale})`,
+    transform: `translateX(-50%) translateY(${(1 - enter) * 120}px) scale(${scale})`,
     opacity: Math.min(1, enter * 1.7),
-    filter: enter < 1 ? `blur(${(1 - enter) * 12}px)` : undefined,
-    transformOrigin: 'center center',
-    // fit the full mockup within a 40px margin on every side (aspect 2.169)
-    width: 'min(calc(100vw - 80px), calc((100vh - 80px) * 2.169), 1500px)',
+    filter: enter < 1 ? `blur(${(1 - enter) * 10}px)` : undefined,
+    transformOrigin: 'center top',
+    width: `${deviceW}px`,
     willChange: 'transform, opacity, filter',
   }
 
-  // heading leads, then fades as the device becomes the hero
-  const headingOpacity = headT * (1 - clamp01(seg(p, 0.2, 0.34)))
-
   return (
     <section ref={wrapRef} className="relative w-full" style={{ height: '440vh' }}>
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        {/* heading leads the section, then dissolves as the device takes over */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* heading pinned above the device */}
         <div
-          className="absolute left-1/2 top-[74px] z-10 flex max-w-[445px] -translate-x-1/2 flex-col items-center text-center"
+          className="absolute left-1/2 top-[70px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
           style={{
-            opacity: headingOpacity,
-            transform: headT < 1 ? `translateY(${(1 - headT) * 30}px)` : undefined,
+            opacity: headT,
+            transform: headT < 1 ? `translateY(${(1 - headT) * 24}px)` : undefined,
             filter: headT < 1 ? `blur(${(1 - headT) * 8}px)` : undefined,
-            pointerEvents: headingOpacity < 0.5 ? 'none' : undefined,
             willChange: 'opacity',
           }}
         >
@@ -215,7 +224,7 @@ export default function ProjectsShowcase() {
           </a>
         </div>
 
-        <div className="relative" style={deviceStyle}>
+        <div className="absolute left-1/2" style={{ top: `${DEVICE_TOP}px`, ...deviceStyle }}>
           <div className="relative">
             <img src={mockupScreen} alt="" className="block w-full select-none rounded-[22px]" draggable="false" />
 
