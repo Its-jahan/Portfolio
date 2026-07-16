@@ -304,15 +304,15 @@ export default function WorkIntro() {
       </div>
 
       <Reveal className="w-full">
-      <p className="mt-[34px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mx-auto mt-[34px] w-full max-w-[640px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         In the age of artificial intelligence, shipping fast is no longer an advantage. When anything can be
         replicated in minutes, just building something <em className="font-serif italic">isn't</em> enough.
       </p>
-      <p className="mt-[20px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mx-auto mt-[20px] w-full max-w-[640px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         Products that are going to stand out and last are those that are built extremely well, with intent and
         extraordinary <em className="font-serif italic">care</em>.
       </p>
-      <p className="mt-[20px] w-full text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
+      <p className="mx-auto mt-[20px] w-full max-w-[640px] text-center text-lg leading-[28px] tracking-[-0.4395px] text-black">
         That's what <em className="font-serif italic">Interfaces</em> focuses on.
       </p>
       </Reveal>
