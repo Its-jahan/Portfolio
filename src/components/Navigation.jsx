@@ -67,7 +67,9 @@ export default function Navigation() {
             </div>
 
             <a
-              href="#contact"
+              href="https://calendly.com/apply-jahan/30min"
+              target="_blank"
+              rel="noreferrer"
               className="shrink-0 whitespace-nowrap rounded-[24px] border border-[#dedede] bg-[#fafafa] px-[13px] font-satoshi text-[14px] font-bold leading-[15.68px] tracking-[-0.14px] text-black shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
               style={{
                 paddingTop: compact ? 5 : 7,
