@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import screenshot from '../assets/main-screenshot-final.png'
+import mockupScreen from '../assets/mockup-screen.jpg'
 import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01, SPRING } from './motion'
 
 /* My three most-loved works. Each appears as a window on the laptop
@@ -183,20 +183,24 @@ export default function ProjectsShowcase() {
           </a>
         </div>
 
-        {/* MacBook-style mockup; works genie up behind the notch */}
-        <div className="relative mt-[34px] w-[92%] max-w-[1080px]" style={deviceStyle}>
-          <div className="relative rounded-t-[28px] bg-black px-[6px] pt-[30px]">
-            {/* notch */}
+        {/* Laptop mockup (Figma export: thin bezel + centered notch baked in);
+            works genie up behind the notch */}
+        <div className="relative mt-[34px] w-[92%] max-w-[1060px]" style={deviceStyle}>
+          <div className="relative">
+            <img src={mockupScreen} alt="" className="block w-full select-none" draggable="false" />
+
+            {/* overlay notch matching the baked one, above the windows so they
+                slide behind it as they minimize into the notch */}
             <div
               ref={notchRef}
-              className="absolute left-1/2 top-[29px] z-30 h-[15px] w-[140px] -translate-x-1/2 rounded-b-[10px] bg-black"
+              className="absolute left-1/2 top-0 z-30 h-[4.6%] w-[9.4%] -translate-x-1/2 rounded-b-[10px] bg-black"
             />
 
             {/* Dynamic-Island work counter — appears after the first genie */}
             <div
-              className="absolute top-[26px] z-30 flex h-[21px] items-center gap-1.5 rounded-full bg-black px-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
+              className="absolute top-[0.6%] z-30 flex h-[21px] items-center gap-1.5 rounded-full bg-black px-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
               style={{
-                left: 'calc(50% + 78px)',
+                left: 'calc(50% + 6.6%)',
                 opacity: count > 0 ? 1 : 0,
                 transform: count > 0 ? 'translateX(0) scale(1)' : 'translateX(-14px) scale(0.5)',
                 transition: `transform 480ms ${SPRING}, opacity 260ms ease`,
@@ -216,10 +220,8 @@ export default function ProjectsShowcase() {
               </span>
             </div>
 
-            <img src={screenshot} alt="" className="block w-full rounded-t-[6px] object-cover" />
-
             {/* work windows layered over the screen (centered, not full-bleed) */}
-            <div ref={holderRef} className="absolute left-1/2 top-[12%] z-20 h-[62%] w-[44%] -translate-x-1/2">
+            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[60%] w-[42%] -translate-x-1/2">
               {WORKS.map((w, i) => {
                 if (active === -1 ? i !== WORKS.length - 1 : i > active) return null
                 if (active !== -1 && i < active) return null
