@@ -220,7 +220,7 @@ export default function ProjectsShowcase() {
           </p>
           <a
             href="#work"
-            className="mt-4 inline-flex h-[38px] items-center justify-center rounded-full bg-black px-4 font-satoshi text-[14px] font-bold leading-[15.68px] tracking-[-0.14px] text-white shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_25px_25px_-3.75px_rgba(0,0,0,0.11)]"
+            className="mt-4 inline-flex h-[38px] items-center justify-center rounded-full bg-black px-4 font-inter text-[14px] font-medium leading-[15.68px] tracking-[-0.14px] text-white shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_25px_25px_-3.75px_rgba(0,0,0,0.11)]"
           >
             View all my works
           </a>

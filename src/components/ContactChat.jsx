@@ -122,7 +122,7 @@ export default function ContactChat() {
         <button
           type="button"
           onClick={handleCopy}
-          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-hanken text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
+          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-inter font-medium text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
         >
           <img src={iconCopy} alt="" className="size-3.5" />
           {copied ? 'Copied!' : 'Copy'}
@@ -141,7 +141,7 @@ export default function ContactChat() {
           href="https://www.linkedin.com/in/jahan-amir/"
           target="_blank"
           rel="noreferrer"
-          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-hanken text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
+          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-inter font-medium text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
         >
           <img src={iconLinkedin} alt="" className="size-3.5" />
           Connect on LinkedIn
@@ -156,7 +156,7 @@ export default function ContactChat() {
           href="https://github.com/Its-jahan"
           target="_blank"
           rel="noreferrer"
-          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-hanken text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
+          className="flex h-[31px] items-center justify-center gap-2 rounded-full bg-white px-3 font-inter font-medium text-[13px] leading-none text-[#111] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
         >
           <img src={iconGithub} alt="" className="size-3.5" />
           Star me on GitHub

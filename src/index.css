@@ -37,6 +37,7 @@
 
 @theme {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Libre Baskerville", Georgia, serif;
   --font-display: "Britti Sans", "General Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-satoshi: "Satoshi", -apple-system, BlinkMacSystemFont, sans-serif;
