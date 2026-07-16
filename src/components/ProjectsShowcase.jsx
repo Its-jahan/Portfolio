@@ -155,7 +155,7 @@ export default function ProjectsShowcase() {
 
   return (
     <section ref={wrapRef} className="relative w-full" style={{ height: '380vh' }}>
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden pt-[8vh]">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden pt-[86px]">
         <div
           className="flex max-w-[445px] flex-col items-center text-center"
           style={
@@ -183,45 +183,53 @@ export default function ProjectsShowcase() {
           </a>
         </div>
 
-        {/* Laptop mockup (Figma export: thin bezel + centered notch baked in);
-            works genie up behind the notch */}
-        <div className="relative mt-[34px] w-[92%] max-w-[1060px]" style={deviceStyle}>
+        {/* Device mockup — fills the viewport with a 40px margin. Works
+            genie up behind the enlarged TrueDepth camera, which shows the
+            running count of collected works. */}
+        <div
+          className="relative mt-[22px]"
+          style={{
+            ...deviceStyle,
+            // 40px side margin, but never taller than the remaining viewport.
+            // 2.034 is the mockup's width/height aspect ratio.
+            width: 'min(calc(100vw - 80px), calc((100vh - 300px) * 2.034), 1500px)',
+          }}
+        >
           <div className="relative">
             <img src={mockupScreen} alt="" className="block w-full select-none" draggable="false" />
 
-            {/* overlay notch matching the baked one, above the windows so they
-                slide behind it as they minimize into the notch */}
+            {/* Enlarged TrueDepth camera housing (replaces the baked notch);
+                sits above the windows so they slide behind it as they
+                minimize, and displays the collected-works count. */}
             <div
               ref={notchRef}
-              className="absolute left-1/2 top-0 z-30 h-[4.6%] w-[9.4%] -translate-x-1/2 rounded-b-[10px] bg-black"
-            />
-
-            {/* Dynamic-Island work counter — appears after the first genie */}
-            <div
-              className="absolute top-[0.6%] z-30 flex h-[21px] items-center gap-1.5 rounded-full bg-black px-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
-              style={{
-                left: 'calc(50% + 6.6%)',
-                opacity: count > 0 ? 1 : 0,
-                transform: count > 0 ? 'translateX(0) scale(1)' : 'translateX(-14px) scale(0.5)',
-                transition: `transform 480ms ${SPRING}, opacity 260ms ease`,
-                pointerEvents: 'none',
-              }}
-              aria-live="polite"
-              aria-label={`${count} of ${WORKS.length} works collected`}
+              className="absolute left-1/2 top-0 z-30 flex h-[6.2%] min-h-[30px] w-[13.5%] min-w-[128px] -translate-x-1/2 items-center justify-center gap-[7px] rounded-b-[16px] bg-black px-3 shadow-[0_3px_12px_rgba(0,0,0,0.45)]"
             >
-              <span key={count} className="island-pop flex items-center gap-1.5">
+              {/* camera lens */}
+              <span className="relative grid size-[13px] place-items-center rounded-full bg-[#0b0b12] ring-1 ring-white/10">
+                <span className="size-[5px] rounded-full bg-[#1a2b52]" />
+                <span className="absolute right-[3px] top-[2.5px] size-[2px] rounded-full bg-[#4a6fd8]/80" />
+              </span>
+              {/* running work count */}
+              <span
+                key={count}
+                className={`flex items-baseline gap-[3px] ${count > 0 ? 'island-pop' : ''}`}
+                style={{ opacity: count > 0 ? 1 : 0.35, transition: 'opacity 240ms ease' }}
+                aria-live="polite"
+                aria-label={`${count} of ${WORKS.length} works collected`}
+              >
                 <span
-                  className="size-[6px] rounded-full"
-                  style={{ background: count > 0 ? WORKS[Math.min(count, WORKS.length) - 1].accent : '#888' }}
-                />
-                <span className="font-satoshi text-[11px] font-bold leading-none text-white">
-                  {count}/{WORKS.length}
+                  className="font-satoshi text-[15px] font-bold leading-none text-white"
+                  style={{ color: count > 0 ? WORKS[Math.min(count, WORKS.length) - 1].accent : '#fff' }}
+                >
+                  {count}
                 </span>
+                <span className="font-satoshi text-[11px] font-bold leading-none text-white/55">/{WORKS.length}</span>
               </span>
             </div>
 
             {/* work windows layered over the screen (centered, not full-bleed) */}
-            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[60%] w-[42%] -translate-x-1/2">
+            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[60%] w-[38%] -translate-x-1/2">
               {WORKS.map((w, i) => {
                 if (active === -1 ? i !== WORKS.length - 1 : i > active) return null
                 if (active !== -1 && i < active) return null
