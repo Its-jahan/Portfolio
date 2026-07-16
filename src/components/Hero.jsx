@@ -92,6 +92,15 @@ export default function Hero() {
       <Reveal once delay={280} duration={950}><div className="relative inline-block">
         <a
           href="#contact"
+          onClick={(e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+              const rect = contactSection.getBoundingClientRect();
+              const targetY = window.scrollY + rect.top + rect.height;
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+          }}
           className="inline-flex h-[38px] items-center justify-center rounded-full border border-black bg-black px-4 font-satoshi text-[14px] font-bold leading-[15.68px] tracking-[-0.14px] text-white shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_25px_25px_-3.75px_rgba(0,0,0,0.11)]"
         >
           Book a call with me

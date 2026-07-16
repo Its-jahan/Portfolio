@@ -10,7 +10,6 @@ import Bio from './components/Bio'
 import ContactChat from './components/ContactChat'
 import Faq from './components/Faq'
 import Footer from './components/Footer'
-import CommentOverlay from './components/CommentOverlay'
 
 function ScrollEdgeBlur() {
   const edgeStyle = {
@@ -74,7 +73,6 @@ export default function App() {
 
       <Footer />
 
-      {import.meta.env.DEV && <CommentOverlay />}
     </div>
   )
 }
