@@ -9,22 +9,22 @@ const services = [
   {
     image: productDesign,
     title: 'Fintech & Automation Design',
-    body: 'A decade designing dashboards, onboarding, and automation flows for fintech platforms — from design-lead roles at Ace agency and CreatorCore to my own practice today.',
+    body: 'Designing intuitive dashboards, onboarding, and automation flows for complex fintech platforms.',
   },
   {
     title: 'AI-Augmented Workflow',
-    body: 'Claude, Codex, and Gemini as daily tools — reasoning through complex product logic, building working prototypes, and shipping automation products faster than a traditional handoff.',
+    body: 'Leveraging AI tools to reason through logic, build prototypes, and ship products faster.',
     isAi: true,
   },
   {
     image: motion,
     title: 'Motion & Prototyping',
-    body: 'Interaction-accurate prototypes built in Figma and After Effects, so engineering never has to guess the timing, easing, or state behind a transition.',
+    body: 'Building interaction-accurate prototypes so engineering never has to guess timing or states.',
   },
   {
     image: accessibility,
     title: 'Accessibility',
-    body: 'WCAG 2.1 AA compliant systems by default — contrast, focus states, and keyboard navigation considered from the first wireframe, not bolted on at the end.',
+    body: 'Designing WCAG compliant systems by default, embedding accessibility from the first wireframe.',
   },
 ]
 
