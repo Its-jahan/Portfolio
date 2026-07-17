@@ -12,29 +12,22 @@ import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01 } 
       a 40px margin.
    Placeholder work previews for now — swap with real shots later. */
 
+const MEDIA = 'https://jahan-portfolio-nu.vercel.app'
+
 const WORKS = [
   {
     id: '01',
-    name: 'Fintech Dashboard',
-    tag: 'Product Design',
-    tint: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 60%, #ede9fe 100%)',
-    accent: '#4f46e5',
+    src: encodeURI(MEDIA + '/images/projects/opo/forex.png'),
     mode: 'genie',
   },
   {
     id: '02',
-    name: 'Design System',
-    tag: 'Systems',
-    tint: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #ccfbf1 100%)',
-    accent: '#059669',
+    src: encodeURI(MEDIA + '/images/projects/inddex/1440w light.png'),
     mode: 'genie',
   },
   {
     id: '03',
-    name: 'Mobile Banking App',
-    tag: 'iOS · Product',
-    tint: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 60%, #ffedd5 100%)',
-    accent: '#e11d48',
+    src: encodeURI(MEDIA + '/images/projects/HIBUY/Desktop - 8.png'),
     mode: 'stay',
   },
 ]
@@ -58,42 +51,15 @@ function geniePolygon(pinch) {
 function WorkCard({ work }) {
   return (
     <div className="absolute inset-0 overflow-hidden rounded-[18px] bg-white shadow-[0_30px_70px_-20px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,0,0,0.06)]">
-      <div className="flex h-9 items-center gap-1.5 border-b border-black/5 bg-[#f7f7f8] px-4">
-        <span className="size-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="size-2.5 rounded-full bg-[#febc2e]" />
-        <span className="size-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 font-satoshi text-[12px] font-bold tracking-[-0.12px] text-black/45">{work.name}</span>
-      </div>
-      <div className="flex h-[calc(100%-36px)] flex-col p-5">
-        <div className="relative flex-1 overflow-hidden rounded-xl" style={{ background: work.tint }}>
-          <span
-            className="absolute left-4 top-4 rounded-full px-2.5 py-1 font-mono text-[11px] italic"
-            style={{ background: 'rgba(255,255,255,0.75)', color: work.accent }}
-          >
-            {work.tag}
-          </span>
-          <div className="absolute inset-x-4 bottom-4">
-            <p className="font-display text-[clamp(18px,2.4vw,28px)] font-semibold tracking-[-0.4px] text-[#1a1a1a]">
-              {work.name}
-            </p>
-            <div className="mt-3 flex gap-2">
-              <span className="h-2 w-16 rounded-full" style={{ background: work.accent, opacity: 0.9 }} />
-              <span className="h-2 w-10 rounded-full bg-black/15" />
-              <span className="h-2 w-8 rounded-full bg-black/10" />
-            </div>
-          </div>
-          <span className="absolute right-4 top-4 font-mono text-[12px] font-semibold" style={{ color: work.accent }}>
-            {work.id}
-          </span>
-        </div>
-        <div className="mt-4 flex items-center gap-3">
-          <span className="size-8 rounded-full" style={{ background: work.accent, opacity: 0.85 }} />
-          <div className="flex flex-1 flex-col gap-1.5">
-            <span className="h-2 w-1/2 rounded-full bg-black/12" />
-            <span className="h-2 w-1/3 rounded-full bg-black/8" />
-          </div>
-        </div>
-      </div>
+      {/* Preload the image so the browser fetches it immediately */}
+      <link rel="preload" as="image" href={work.src} />
+      <img
+        src={work.src}
+        alt={`Project ${work.id}`}
+        className="block h-full w-full object-cover object-top"
+        loading="eager"
+        fetchPriority="high"
+      />
     </div>
   )
 }
@@ -250,7 +216,7 @@ export default function ProjectsShowcase() {
               >
                 <span
                   className="font-satoshi text-[16px] font-bold leading-none"
-                  style={{ color: count > 0 ? WORKS[Math.min(count, WORKS.length) - 1].accent : '#fff' }}
+                  style={{ color: (count > 0 && WORKS[Math.min(count, WORKS.length) - 1].accent) || '#fff' }}
                 >
                   {count}
                 </span>

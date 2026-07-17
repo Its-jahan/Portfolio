@@ -12,6 +12,7 @@ import Faq from './components/Faq'
 import Footer from './components/Footer'
 import ScrollEdgeBlur from './components/ScrollEdgeBlur'
 import Works from './pages/Works'
+import WorkDetail from './pages/WorkDetail'
 
 function Home() {
   return (
@@ -61,6 +62,7 @@ function Home() {
 export default function App() {
   // lightweight path routing (vercel.json rewrites all paths to index.html)
   const path = typeof window !== 'undefined' ? window.location.pathname : '/'
-  if (path === '/works' || path.startsWith('/works/')) return <Works />
+  if (path === '/works') return <Works />
+  if (path.startsWith('/works/')) return <WorkDetail />
   return <Home />
 }
