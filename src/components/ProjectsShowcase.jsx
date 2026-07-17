@@ -149,7 +149,7 @@ export default function ProjectsShowcase() {
   // fold (immersive, like the reference). The reveal shrinks it just enough
   // to bring the whole mockup into view, springing as it settles.
   const mobile = vp.w < 640
-  const DEVICE_TOP = mobile ? 236 : 248 // px from the viewport top (below the heading)
+  const DEVICE_TOP = mobile ? 276 : 248 // px from the viewport top (below the heading)
   const deviceW = Math.min(vp.w - (mobile ? 24 : 80), 1760)
   // on mobile the wallpaper crops to a tall, immersive panel (bridge-style);
   // on desktop the frame keeps the wallpaper's own aspect ratio
@@ -172,7 +172,7 @@ export default function ProjectsShowcase() {
     <section ref={wrapRef} className="relative w-full" style={{ height: '330vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
-        <div className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-start px-6 text-left sm:items-center sm:px-5 sm:text-center">
+        <div className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-6 text-center sm:px-5">
           <h2 className="font-display text-[27px] font-medium leading-[34px] tracking-[-0.2297px] text-[#202020] sm:text-[32px] sm:leading-[40px] md:whitespace-nowrap">
             Some of my most recent projects
           </h2>
