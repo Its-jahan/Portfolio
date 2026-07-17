@@ -1,5 +1,5 @@
 import bust from '../assets/bio-bust.png'
-import waxSealBadge from '../assets/wax-seal-crop.png'
+import waxSealBadge from '../assets/stamped.svg'
 import { useEffect, useRef, useState } from 'react'
 import { Reveal, reducedMotion } from './motion'
 
@@ -102,7 +102,7 @@ export default function Bio() {
 
       <div className="mt-[28px] flex flex-col items-center">
         <Reveal delay={100}><div className="flex items-center gap-3">
-          <img src={waxSealBadge} alt="" className="size-[68px] shrink-0 mix-blend-multiply" />
+          <img src={waxSealBadge} alt="" className="w-[60px] shrink-0" />
           <div className="text-center leading-6">
             <p className="font-satoshi text-xs font-medium text-black opacity-40">Figma Expert</p>
             <p className="font-serif text-base italic text-neutral-800">Amirhossein Jahangir</p>
