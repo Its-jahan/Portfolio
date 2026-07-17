@@ -18,7 +18,7 @@ export default function Hero() {
           <p className="whitespace-nowrap font-display text-[60px] leading-[72px] tracking-[-1.2363px] text-[#18181a]">
             Elevating
           </p>
-          <div className="absolute -left-[150px] top-0 flex -translate-y-full flex-col items-start pb-0">
+          <div className="absolute -left-[150px] top-0 hidden -translate-y-full flex-col items-start pb-0 sm:flex">
             <div className="flex items-center gap-1.5 rounded-lg bg-white py-1 pl-1 pr-1.5 shadow-[0_0_0_rgba(0,0,0,0.06),0_1px_1px_rgba(0,0,0,0.06),0_2px_2px_rgba(0,0,0,0.04)]">
               <span className="size-4 shrink-0 rounded border border-[#ebebeb] bg-[#fcfcfc]" />
               <span className="whitespace-nowrap font-mono text-xs italic text-[#646464]">oklch(0.991 0 0)</span>
@@ -40,7 +40,7 @@ export default function Hero() {
               Engineering
             </p>
             {/* "344 × 58" dimension label above the selection box */}
-            <div className="absolute -top-2 right-[28px] flex -translate-y-full flex-col items-center">
+            <div className="absolute -top-2 right-[28px] hidden -translate-y-full flex-col items-center sm:flex">
               <div className="rounded-lg bg-white px-1.5 py-1 shadow-[0_0_0_rgba(0,0,0,0.06),0_1px_1px_rgba(0,0,0,0.06),0_2px_2px_rgba(0,0,0,0.04)]">
                 <span className="whitespace-nowrap font-mono text-xs italic text-[#646464]">344 × 58</span>
               </div>
@@ -60,7 +60,7 @@ export default function Hero() {
           <p className="whitespace-nowrap font-serif text-[60px] italic leading-[72px] tracking-[-1.5px] text-black">
             Design
           </p>
-          <div className="absolute left-full top-1/2 flex -translate-y-1/2 items-center gap-5 pl-5">
+          <div className="absolute left-full top-1/2 hidden -translate-y-1/2 items-center gap-5 pl-5 sm:flex">
             <span className="h-px w-5 border-t border-dashed border-[#e0e0e0]" />
             <Dot />
             <div className="rounded-lg bg-white px-1.5 py-1 shadow-[0_0_0_rgba(0,0,0,0.06),0_1px_1px_rgba(0,0,0,0.06),0_2px_2px_rgba(0,0,0,0.04)]">
@@ -98,7 +98,7 @@ export default function Hero() {
         >
           Book a call with me
         </a>
-        <div className="absolute left-full top-1/2 flex -translate-y-1/2 items-center gap-2 pl-2">
+        <div className="absolute left-full top-1/2 hidden -translate-y-1/2 items-center gap-2 pl-2 sm:flex">
           <span className="h-px w-4 border-t border-dashed border-[#e0e0e0]" />
           <Dot />
           <div className="rounded-lg bg-white px-1.5 py-1 shadow-[0_0_0_rgba(0,0,0,0.06),0_1px_1px_rgba(0,0,0,0.06),0_2px_2px_rgba(0,0,0,0.04)]">

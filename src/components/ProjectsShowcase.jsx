@@ -182,10 +182,13 @@ export default function ProjectsShowcase() {
   // taller than the space under the heading, so its bottom crops past the
   // fold (immersive, like the reference). The reveal shrinks it just enough
   // to bring the whole mockup into view, springing as it settles.
-  const DEVICE_TOP = 248 // px from the viewport top (heading at 88 + its height)
-  const deviceW = Math.min(vp.w - 80, 1760)
-  const naturalH = deviceW / ASPECT
-  const availH = vp.h - DEVICE_TOP - 40
+  const mobile = vp.w < 640
+  const DEVICE_TOP = mobile ? 236 : 248 // px from the viewport top (below the heading)
+  const deviceW = Math.min(vp.w - (mobile ? 24 : 80), 1760)
+  // on mobile the wallpaper crops to a tall, immersive panel (bridge-style);
+  // on desktop the frame keeps the wallpaper's own aspect ratio
+  const naturalH = mobile ? Math.min(vp.h * 0.6, 620) : deviceW / ASPECT
+  const availH = vp.h - DEVICE_TOP - (mobile ? 20 : 40)
   const fitScale = clamp01(availH / naturalH) || 1
   const scale = 1 - (1 - fitScale) * reveal
   const deviceStyle = {
@@ -203,23 +206,15 @@ export default function ProjectsShowcase() {
     <section ref={wrapRef} className="relative w-full" style={{ height: '330vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
-        <div
-          className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-5 text-center"
-          style={{
-            opacity: headT,
-            transform: headT < 1 ? `translateY(${(1 - headT) * 24}px)` : undefined,
-            filter: headT < 1 ? `blur(${(1 - headT) * 8}px)` : undefined,
-            willChange: 'opacity',
-          }}
-        >
-          <h2 className="whitespace-nowrap font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
+        <div className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-start px-6 text-left sm:items-center sm:px-5 sm:text-center">
+          <h2 className="font-display text-[27px] font-medium leading-[34px] tracking-[-0.2297px] text-[#202020] sm:text-[32px] sm:leading-[40px] md:whitespace-nowrap">
             Some of my most recent projects
           </h2>
           <p className="mt-4 max-w-[365px] text-[15px] font-normal leading-[18px] text-[#404040]">
             Across phones, desktops, browsers, clouds, and every surface where work actually happens.
           </p>
           <a
-            href="#work"
+            href="/works"
             className="mt-4 inline-flex h-[38px] items-center justify-center rounded-full bg-black px-4 font-inter text-[14px] font-medium leading-[15.68px] tracking-[-0.14px] text-white shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_25px_25px_-3.75px_rgba(0,0,0,0.11)]"
           >
             View all my works
@@ -227,18 +222,18 @@ export default function ProjectsShowcase() {
         </div>
 
         <div className="absolute left-1/2" style={{ top: `${DEVICE_TOP}px`, ...deviceStyle }}>
-          <div className="relative">
+          <div className="relative overflow-hidden rounded-[24px] border-[5px] border-black" style={{ height: naturalH }}>
             <img
               src={mockupScreen}
               alt=""
-              className="block w-full select-none rounded-[24px] border-[5px] border-black"
+              className="absolute inset-0 block h-full w-full select-none object-cover"
               draggable="false"
             />
 
             {/* TrueDepth camera housing — count on the right, lens centered */}
             <div
               ref={notchRef}
-              className="absolute left-1/2 top-0 z-30 flex h-[6.4%] min-h-[32px] w-[15%] min-w-[150px] -translate-x-1/2 items-center rounded-b-[16px] bg-black pl-4 pr-3 shadow-[0_3px_14px_rgba(0,0,0,0.5)]"
+              className="absolute left-1/2 top-0 z-30 flex h-[6.4%] max-h-[38px] min-h-[26px] w-[34%] min-w-[112px] -translate-x-1/2 items-center rounded-b-[16px] bg-black pl-3 pr-2.5 shadow-[0_3px_14px_rgba(0,0,0,0.5)] sm:w-[15%] sm:min-w-[150px] sm:pl-4 sm:pr-3"
             >
               {/* camera lens (centered) */}
               <span className="absolute left-1/2 top-1/2 grid size-[13px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#0b0b12] ring-1 ring-white/10">
@@ -264,7 +259,7 @@ export default function ProjectsShowcase() {
             </div>
 
             {/* work windows over the desktop */}
-            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[58%] w-[38%] -translate-x-1/2">
+            <div ref={holderRef} className="absolute left-1/2 top-[13%] z-20 h-[58%] w-[74%] -translate-x-1/2 sm:w-[52%] xl:w-[38%]">
               <GenieWindow work={WORKS[0]} appearT={enter} genieT={g0} dyLocal={geom.current.dy} />
               <GenieWindow work={WORKS[1]} appearT={a1} genieT={g1} dyLocal={geom.current.dy} />
               <StayWindow work={WORKS[2]} arriveT={a2} />

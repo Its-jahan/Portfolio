@@ -30,12 +30,12 @@ export default function Navigation() {
           className="pointer-events-auto flex items-center rounded-[32px] border border-[#dedede] bg-white/85 px-[13px] backdrop-blur-md"
           style={{
             height: compact ? 40 : 45,
-            gap: compact ? 20 : 64,
+            gap: compact ? 20 : 'clamp(14px, 4.5vw, 64px)',
             boxShadow: compact ? '0 8px 24px -12px rgba(0,0,0,0.18)' : '0 0 0 rgba(0,0,0,0)',
-            transition: `height 450ms ${EASE}, gap 450ms ${EASE}, box-shadow 450ms ${EASE}`,
+            transition: `height 450ms ${EASE}, box-shadow 450ms ${EASE}`,
           }}
         >
-          <a href="#" className="flex shrink-0 items-center gap-2">
+          <a href="/" className="flex shrink-0 items-center gap-2">
             <img
               src={headshot}
               alt="Amirhossein Jahangir"
@@ -50,7 +50,7 @@ export default function Navigation() {
           <div className="flex items-center gap-4">
             {/* the link group collapses away in compact mode */}
             <div
-              className="flex items-center gap-4 overflow-hidden"
+              className="hidden items-center gap-4 overflow-hidden md:flex"
               style={{
                 maxWidth: compact ? 0 : 320,
                 opacity: compact ? 0 : 1,
@@ -62,7 +62,7 @@ export default function Navigation() {
               {links.map((link) => (
                 <a
                   key={link.name}
-                  href={link.href}
+                  href={link.name === 'Work' ? '/works' : link.href}
                   tabIndex={compact ? -1 : 0}
                   className="whitespace-nowrap font-inter text-[14px] font-medium leading-[15.68px] tracking-[-0.14px] text-black"
                 >

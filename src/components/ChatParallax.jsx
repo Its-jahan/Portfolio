@@ -183,7 +183,7 @@ export default function ChatParallax() {
         {COLUMNS.map((col, i) => (
           <div
             key={i}
-            className="flex w-1/3 min-w-0 max-w-[340px] flex-col gap-4"
+            className={`${i === 1 ? 'hidden min-[540px]:flex' : i === 2 ? 'hidden md:flex' : 'flex'} w-full max-w-[340px] flex-col gap-4 min-[540px]:w-1/3 min-[540px]:min-w-0`}
             style={{
               transform: `translate3d(0, ${col.offset - t * drift * col.speed}px, 0)`,
               willChange: 'transform',

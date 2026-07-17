@@ -467,12 +467,20 @@ const PITCH = SLIDE_W + SLIDE_GAP
 
 export default function WorkIntro() {
   const [idx, setIdx] = useState(1) // start on the second card, neighbors peeking
+  const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+  // scale the fixed-size cards down so the active card always fits on screen
+  const s = Math.min(1, (vw - 24) / SLIDE_W)
   const prev = () => setIdx((i) => Math.max(0, i - 1))
   const next = () => setIdx((i) => Math.min(SLIDES.length - 1, i + 1))
   return (
     <section id="work" className="flex w-full flex-col items-center pt-[111px]">
       <Reveal>
-        <h2 className="pb-[21px] text-center font-display text-[32px] font-medium leading-[40px] tracking-[-0.2297px] text-[#202020]">
+        <h2 className="pb-[21px] text-center font-display text-[26px] font-medium leading-[34px] tracking-[-0.2297px] text-[#202020] sm:text-[32px] sm:leading-[40px]">
           What Makes me a exceptional designer?
         </h2>
       </Reveal>
@@ -493,12 +501,13 @@ export default function WorkIntro() {
 
       {/* Carousel: viewport clips at the column edges, neighbors peek */}
       <Reveal delay={120} className="w-full">
-        <div className="relative mt-[30px] w-full overflow-hidden">
+        <div className="relative mt-[30px] w-full overflow-hidden" style={{ height: CARD_H * s }}>
           <div
             className="flex w-max items-start gap-[14px]"
             style={{
               marginLeft: '50%',
-              transform: `translateX(${-SLIDE_W / 2 - idx * PITCH}px)`,
+              transformOrigin: 'left top',
+              transform: `scale(${s}) translateX(${-SLIDE_W / 2 - idx * PITCH}px)`,
               transition: `transform 700ms ${EASE}`,
               willChange: 'transform',
             }}

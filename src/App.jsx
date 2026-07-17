@@ -10,36 +10,17 @@ import Bio from './components/Bio'
 import ContactChat from './components/ContactChat'
 import Faq from './components/Faq'
 import Footer from './components/Footer'
+import ScrollEdgeBlur from './components/ScrollEdgeBlur'
+import Works from './pages/Works'
 
-function ScrollEdgeBlur() {
-  const edgeStyle = {
-    backdropFilter: 'blur(12px)',
-    WebkitBackdropFilter: 'blur(12px)',
-    background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0))',
-    maskImage: 'linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.9) 30%, transparent 100%)',
-    WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.9) 30%, transparent 100%)',
-  }
-
+function Home() {
   return (
-    <>
-      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 z-40 h-[112px]" style={edgeStyle} />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-[112px] rotate-180"
-        style={edgeStyle}
-      />
-    </>
-  )
-}
-
-export default function App() {
-  return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen overflow-x-clip bg-white">
       {/* Column guide lines from the design file: solid #EDEDED at the content
           column edges, running from the top to just above the Bio section */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 z-0 h-[3808px] w-[712px] -translate-x-1/2 border-l border-r border-[#ededed]"
+        className="pointer-events-none absolute left-1/2 top-0 z-0 hidden h-[3808px] w-[712px] -translate-x-1/2 border-l border-r border-[#ededed] md:block"
       />
 
       <Navigation />
@@ -75,4 +56,11 @@ export default function App() {
 
     </div>
   )
+}
+
+export default function App() {
+  // lightweight path routing (vercel.json rewrites all paths to index.html)
+  const path = typeof window !== 'undefined' ? window.location.pathname : '/'
+  if (path === '/works' || path.startsWith('/works/')) return <Works />
+  return <Home />
 }
