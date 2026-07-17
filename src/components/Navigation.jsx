@@ -27,7 +27,7 @@ export default function Navigation() {
 
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex flex-col items-center pt-5">
         <nav
-          className="pointer-events-auto flex items-center rounded-[32px] border border-[#dedede] bg-white/85 px-[13px] backdrop-blur-md"
+          className="pointer-events-auto flex items-center rounded-[32px] border border-[#dedede] bg-white/85 px-[8px] backdrop-blur-md"
           style={{
             height: compact ? 40 : 45,
             gap: compact ? 20 : 'clamp(14px, 4.5vw, 64px)',
