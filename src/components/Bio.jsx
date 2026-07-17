@@ -1,5 +1,5 @@
 import bust from '../assets/bio-bust.png'
-import waxSealBadge from '../assets/stamped.svg'
+import waxSealBadge from '../assets/Stamped.svg'
 import { useEffect, useRef, useState } from 'react'
 import { Reveal, reducedMotion } from './motion'
 
