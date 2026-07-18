@@ -83,6 +83,47 @@ export function useScrollProgress(ref) {
   return p
 }
 
+/* Time-based trigger: scroll position only ARMS the animation — once the
+   threshold is crossed the whole effect plays out on its own clock (like
+   macOS genie: a flick starts it, it finishes itself). Reverses smoothly
+   from wherever it is when scrolled back above the threshold. */
+export function useAnimatedTrigger(active, duration = 800, ease = easeInOut) {
+  const [t, setT] = useState(0)
+  const s = useRef({ raf: 0, cur: 0, target: -1 })
+
+  useEffect(() => {
+    if (reducedMotion()) {
+      setT(active ? 1 : 0)
+      return
+    }
+    const st = s.current
+    const target = active ? 1 : 0
+    if (st.target === target) return
+    st.target = target
+    cancelAnimationFrame(st.raf)
+    const from = st.cur
+    const dist = Math.abs(target - from)
+    if (dist < 0.001) {
+      st.cur = target
+      setT(target)
+      return
+    }
+    const dur = duration * dist
+    const start = performance.now()
+    const step = (now) => {
+      const k = clamp01((now - start) / dur)
+      st.cur = from + (target - from) * ease(k)
+      setT(st.cur)
+      if (k < 1) st.raf = requestAnimationFrame(step)
+    }
+    st.raf = requestAnimationFrame(step)
+  }, [active, duration, ease])
+
+  useEffect(() => () => cancelAnimationFrame(s.current.raf), [])
+
+  return t
+}
+
 /* Fade-up reveal with blur on entrance, plus a scroll-scrubbed exit
    dissolve on the way out: as a block leaves past the top of the
    viewport it drifts up a touch, softly blurs, and fades — the same
@@ -118,14 +159,15 @@ export function Reveal({ children, delay = 0, y = 26, blur = 10, duration = 850,
     return subscribeScroll(() => {
       const r = el.getBoundingClientRect()
       const vh = window.innerHeight
-      // begin dissolving once the block's top rises past 24% of the
-      // viewport; fully gone a little above the top edge. Only ever
-      // engages near the top, so it never touches entering content.
-      const start = vh * 0.24
-      const end = -r.height * 0.35 - vh * 0.02
+      // The dissolve line sits at 25% of the viewport. A block stays fully
+      // crisp until its BOTTOM edge reaches the line — so tall content (the
+      // bio statue) never fades mid-screen — then dissolves through the
+      // band between the line and the top edge.
+      const line = vh * 0.25
+      const end = vh * 0.04
       // gate on real scroll so blocks that naturally sit near the top
       // (the hero) load crisp and fully un-dissolve when scrolled back
-      const next = clamp01((start - r.top) / (start - end)) * clamp01(window.scrollY / 160)
+      const next = clamp01((line - r.bottom) / (line - end)) * clamp01(window.scrollY / 160)
       setEx((prev) => (Math.abs(prev - next) > 0.002 ? next : prev))
     })
   }, [exit])

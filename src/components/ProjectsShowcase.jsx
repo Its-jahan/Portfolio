@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import mockupScreen from '../assets/mockup-screen.jpg'
-import { useScrollProgress, subscribeScroll, seg, easeOut, easeInOut, clamp01 } from './motion'
+import { useScrollProgress, subscribeScroll, useAnimatedTrigger, seg, easeOut, easeInOut, clamp01 } from './motion'
 
 /* My three most-loved works, shown on a device that behaves like a real
    Apple product page:
@@ -132,17 +132,21 @@ export default function ProjectsShowcase() {
   }, [])
 
   // ── timeline ────────────────────────────────────────────────────────
+  // Scroll position only ARMS each step; once a threshold is crossed the
+  // whole effect plays out on its own clock, Apple-genie style — a small
+  // scroll fires the complete minimize, no scrubbing through it.
   const headT = easeOut(seg(p, 0.0, 0.08))
-  const enter = easeOut(seg(p, 0.0, 0.16)) // device rises + zooms in from the first pixel
+  const enter = easeOut(seg(p, 0.0, 0.14)) // device rises + focuses from the first pixel
 
-  const g0 = easeInOut(seg(p, 0.26, 0.42))
-  const a1 = easeOut(seg(p, 0.42, 0.48))
-  const g1 = easeInOut(seg(p, 0.5, 0.66))
-  const a2 = seg(p, 0.66, 0.8) // work three arrives and stays
+  const g0 = useAnimatedTrigger(p > 0.24, 850)
+  const a1 = useAnimatedTrigger(p > 0.38, 550, easeOut)
+  const g1 = useAnimatedTrigger(p > 0.5, 850)
+  const a2 = useAnimatedTrigger(p > 0.64, 650, (t) => t) // StayWindow springs itself
 
-  const reveal = easeOutBack(seg(p, 0.84, 1.0), 1.4) // crop → full mockup, spring
+  const revealT = useAnimatedTrigger(p > 0.78, 900, (t) => t)
+  const reveal = easeOutBack(revealT, 1.4) // crop → full mockup, spring
 
-  const count = (g0 >= 1 ? 1 : 0) + (g1 >= 1 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
+  const count = (g0 >= 0.99 ? 1 : 0) + (g1 >= 0.99 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
 
   // The device fills the width with a 40px side margin. At that width it's
   // taller than the space under the heading, so its bottom crops past the
