@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import mockupScreen from '../assets/mockup-screen.jpg'
-import { useScrollProgress, subscribeScroll, useAnimatedTrigger, seg, easeOut, easeInOut, clamp01 } from './motion'
+import { useScrollProgress, subscribeScroll, useAnimatedTrigger, reducedMotion, seg, easeOut, easeInOut, clamp01 } from './motion'
 
 /* My three most-loved works, shown on a device that behaves like a real
    Apple product page:
@@ -135,15 +135,72 @@ export default function ProjectsShowcase() {
   // Scroll position only ARMS each step; once a threshold is crossed the
   // whole effect plays out on its own clock, Apple-genie style — a small
   // scroll fires the complete minimize, no scrubbing through it.
-  const headT = easeOut(seg(p, 0.0, 0.08))
-  const enter = easeOut(seg(p, 0.0, 0.14)) // device rises + focuses from the first pixel
+  // One scroll gesture = one work. While the section is pinned, wheel
+  // gestures are captured: each one fires the next transition, which then
+  // plays to completion on its own clock — it cannot be stopped or
+  // scrubbed mid-flight. Scrolling up steps back the same way. Touch
+  // devices fall back to scroll-position thresholds.
+  const [step, setStep] = useState(0)
+  const [inView, setInView] = useState(false)
+  const [bgOff, setBgOff] = useState(0)
+  const stepRef = useRef(0)
+  const lockRef = useRef(0)
+  const lastWheelRef = useRef(0)
 
-  const g0 = useAnimatedTrigger(p > 0.24, 850)
-  const a1 = useAnimatedTrigger(p > 0.38, 550, easeOut)
-  const g1 = useAnimatedTrigger(p > 0.5, 850)
-  const a2 = useAnimatedTrigger(p > 0.64, 650, (t) => t) // StayWindow springs itself
+  useEffect(() => {
+    return subscribeScroll(() => {
+      const el = wrapRef.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      setInView(r.top < window.innerHeight * 0.6)
+      // luxury parallax: the wallpaper lags the page scroll a touch
+      setBgOff(Math.max(-30, Math.min(30, -r.top * 0.06)))
+    })
+  }, [])
 
-  const revealT = useAnimatedTrigger(p > 0.78, 900, (t) => t)
+  useEffect(() => {
+    if (reducedMotion()) return
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
+    const MAX_STEP = 3
+    const onWheel = (e) => {
+      const el = wrapRef.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const vh = window.innerHeight
+      const pinned = r.top <= 2 && r.bottom >= vh - 2
+      if (!pinned) return
+      const dir = e.deltaY > 0 ? 1 : -1
+      const cur = stepRef.current
+      const canStep = dir > 0 ? cur < MAX_STEP : cur > 0
+      if (!canStep) return // release native scroll past the edges
+      e.preventDefault()
+      const now = performance.now()
+      // require a fresh gesture (gap in the wheel stream) after the lock,
+      // so trackpad inertia never double-fires
+      const freshGesture = now - lastWheelRef.current > 160
+      lastWheelRef.current = now
+      if (now < lockRef.current || !freshGesture) return
+      stepRef.current = cur + dir
+      setStep(stepRef.current)
+      lockRef.current = now + 1050
+    }
+    window.addEventListener('wheel', onWheel, { passive: false })
+    return () => window.removeEventListener('wheel', onWheel)
+  }, [])
+
+  // touch fallback: derive the step from scroll progress
+  const coarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+  const sIdx = coarse ? (p > 0.62 ? 3 : p > 0.4 ? 2 : p > 0.16 ? 1 : 0) : step
+
+  const enter = useAnimatedTrigger(inView, 800, easeOut) // device rises + focuses on approach
+  const headT = enter
+
+  const g0 = useAnimatedTrigger(sIdx >= 1, 850)
+  const a1 = useAnimatedTrigger(g0 > 0.8, 550, easeOut) // next work follows the genie
+  const g1 = useAnimatedTrigger(sIdx >= 2, 850)
+  const a2 = useAnimatedTrigger(g1 > 0.8, 650, (t) => t) // StayWindow springs itself
+
+  const revealT = useAnimatedTrigger(sIdx >= 3, 900, (t) => t)
   const reveal = easeOutBack(revealT, 1.4) // crop → full mockup, spring
 
   const count = (g0 >= 0.99 ? 1 : 0) + (g1 >= 0.99 ? 1 : 0) + (a2 >= 0.85 ? 1 : 0)
@@ -173,7 +230,7 @@ export default function ProjectsShowcase() {
   }
 
   return (
-    <section ref={wrapRef} className="relative w-full" style={{ height: '330vh' }}>
+    <section ref={wrapRef} className="relative w-full" style={{ height: '175vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* heading pinned above the device */}
         <div className="absolute left-1/2 top-[88px] z-10 flex w-full max-w-[445px] -translate-x-1/2 flex-col items-center px-6 text-center sm:px-5">
@@ -198,6 +255,7 @@ export default function ProjectsShowcase() {
               alt=""
               className="absolute inset-0 block h-full w-full select-none object-cover"
               draggable="false"
+              style={{ transform: `translateY(${-bgOff}px) scale(1.09)`, willChange: 'transform' }}
             />
 
             {/* TrueDepth camera housing — count on the right, lens centered */}
