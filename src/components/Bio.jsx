@@ -110,7 +110,7 @@ export default function Bio() {
         </div></Reveal>
 
         <p className="mt-[39px] max-w-[470px] text-center text-[20px] leading-[30px] tracking-[-0.4px] text-black">
-          Been designing AI-native fintech and automation products for the better part of a decade — always on a
+          Been designing AI-native fintech and automation products since 2020 — always on a
           mission to make complex systems feel quietly intelligent.
         </p>
       </div>

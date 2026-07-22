@@ -14,6 +14,21 @@ export const PROJECTS = [
     tag: 'Fintech · Web',
     type: 'landing',
     desc: "Six custom landing pages showcasing futures trading tools, built on Opo-finance's design system.",
+    // TODO(jahan): replace ⟨…⟩ with real figures if you have them, or delete the bracketed part.
+    caseStudy: {
+      role: 'Product & UI designer — landing pages, design-system extension, front-end handoff',
+      context:
+        'Opofinance offers forex and futures trading through MT4/MT5 platforms. Traders arrive skeptical and comparison-shopping, so the marketing site has to make sophisticated tools feel trustworthy and move qualified visitors toward opening an account.',
+      challenge:
+        'Explain complex, feature-dense trading products across six pages without overwhelming visitors — and do it inside the brand’s existing design system so nothing felt bolted on.',
+      approach: [
+        'Audited the existing design system and extended its tokens, components and dark fintech aesthetic so the new pages read as native, not templated.',
+        'Structured each page around a single decision — platforms (MT4/MT5), instruments, account types — leading with the trader’s question rather than a feature dump.',
+        'Built interaction-accurate prototypes so engineering could ship the motion and states without guessing.',
+      ],
+      outcome:
+        'A cohesive six-page system that presents advanced trading tools clearly and guides visitors toward account sign-up, consistent across every surface. ⟨Add real conversion / sign-up lift if measured.⟩',
+    },
     src: '/images/projects/opo/forex.png',
     pages: [
       '/images/projects/opo/forex.png',
@@ -96,6 +111,20 @@ export const PROJECTS = [
     tag: 'Dashboard · Agency',
     type: 'dashboard',
     desc: 'An agency management dashboard unifying client workflows, invoicing, and revenue analytics.',
+    caseStudy: {
+      role: 'Product designer — information architecture, dashboard UI, invoicing flow, design system',
+      context:
+        'Agencies run client work, invoicing and revenue tracking across scattered spreadsheets and disconnected tools, with no single source of truth for where money and projects stand.',
+      challenge:
+        'Unify three jobs — client workflow, invoicing, and revenue analytics — into one dashboard dense enough for power users but calm enough to scan every day.',
+      approach: [
+        'Mapped the agency operating loop (client → project → invoice → revenue) and built the information architecture around it.',
+        'Designed the end-to-end invoicing flow — creation, line items, status, and history — as the product’s highest-frequency task.',
+        'Established a data-viz and component language so analytics, tables and forms stayed consistent as the product scaled.',
+      ],
+      outcome:
+        'A single dashboard that replaces scattered tools, making client status, invoicing and revenue legible at a glance. ⟨Add adoption or time-saved figures if you have them.⟩',
+    },
     src: '/images/projects/Web2get/dashboard-1.png',
     pages: [
       '/images/projects/Web2get/dashboard-1.png',
@@ -118,6 +147,20 @@ export const PROJECTS = [
     tag: 'B2B · Health',
     type: 'dashboard',
     desc: 'A secure B2B web app streamlining workflows between dental clinics and technician labs.',
+    caseStudy: {
+      role: 'Product designer — two-sided workflow, UI, design system',
+      context:
+        'Dental clinics and technician labs coordinate custom casework (crowns, aligners, dentures) — historically over phone, paper and messaging, with no shared status or spec history.',
+      challenge:
+        'Design a secure, two-sided system where clinics submit precise case specs and labs track and fulfil them — cutting the back-and-forth and errors that come from an unstructured handoff.',
+      approach: [
+        'Mapped the clinic ↔ lab handoff to find where cases stall: missing specs, unclear status, lost files.',
+        'Designed a structured case-order flow with clear specs, attachments, and a shared status timeline both sides can trust.',
+        'Made dense clinical data scannable with a consistent status system, so staff can triage a queue at a glance.',
+      ],
+      outcome:
+        'A shared workspace that replaces phone-and-paper coordination with a structured, auditable flow between clinics and labs. ⟨Add error-reduction or turnaround figures if measured.⟩',
+    },
     src: '/images/projects/easylab/Desktop - 2.png',
     pages: [
       '/images/projects/easylab/Desktop - 2.png',

@@ -148,6 +148,64 @@ function MasonryGallery({ project, onImageClick }) {
   )
 }
 
+/* ── Case-study narrative ────────────────────────────────────────── */
+
+function CaseStudy({ cs }) {
+  if (!cs) return null
+  const blocks = [
+    ['Context', cs.context],
+    ['Challenge', cs.challenge],
+  ].filter(([, body]) => body)
+
+  return (
+    <section className="mx-auto mt-4 mb-24 w-full max-w-[680px]">
+      {cs.role && (
+        <Reveal once>
+          <p className="mb-12 text-center font-mono text-[13px] italic text-[#8d8d8d]">{cs.role}</p>
+        </Reveal>
+      )}
+
+      <div className="flex flex-col gap-11">
+        {blocks.map(([label, body]) => (
+          <Reveal once key={label}>
+            <div>
+              <h3 className="mb-3 font-mono text-[12px] uppercase tracking-[0.08em] text-[#a0a0a0]">{label}</h3>
+              <p className="text-[18px] leading-[29px] tracking-[-0.2px] text-[#2a2a2a]">{body}</p>
+            </div>
+          </Reveal>
+        ))}
+
+        {cs.approach?.length > 0 && (
+          <Reveal once>
+            <div>
+              <h3 className="mb-4 font-mono text-[12px] uppercase tracking-[0.08em] text-[#a0a0a0]">Approach</h3>
+              <ol className="flex flex-col gap-4">
+                {cs.approach.map((step, i) => (
+                  <li key={i} className="flex gap-4">
+                    <span className="mt-[4px] font-mono text-[13px] text-[#c4c4c4]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <p className="text-[17px] leading-[27px] tracking-[-0.2px] text-[#3a3a3a]">{step}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+        )}
+
+        {cs.outcome && (
+          <Reveal once>
+            <div className="rounded-[18px] bg-[#f6f6f6] px-7 py-6">
+              <h3 className="mb-3 font-mono text-[12px] uppercase tracking-[0.08em] text-[#a0a0a0]">Outcome</h3>
+              <p className="text-[18px] leading-[29px] tracking-[-0.2px] text-[#202020]">{cs.outcome}</p>
+            </div>
+          </Reveal>
+        )}
+      </div>
+    </section>
+  )
+}
+
 /* ── Detail page ─────────────────────────────────────────────────── */
 
 export default function WorkDetail() {
@@ -212,6 +270,9 @@ export default function WorkDetail() {
             </p>
           </Reveal>
         </div>
+
+        {/* case-study narrative */}
+        {project.caseStudy && <CaseStudy cs={project.caseStudy} />}
 
         {/* gallery */}
         <section className="mb-32 w-full mt-14">

@@ -93,7 +93,7 @@ export default function ContactChat() {
     },
     {
       from: 'them',
-      node: <Bubble from="them">now i build premium, interactive sites that look good, feel fast, and actually rank.</Bubble>,
+      node: <Bubble from="them">now i design & build product interfaces that look premium, feel fast, and make complex flows simple.</Bubble>,
     },
     { from: 'me', node: <Bubble from="me">i built a site with AI but it's kind of a mess 😅</Bubble> },
     { from: 'me', node: <Bubble from="me">can you clean it, fix it, and redesign it properly?</Bubble> },
@@ -101,7 +101,7 @@ export default function ContactChat() {
       from: 'them',
       node: (
         <Bubble from="them">
-          yes, don't worry, i'll save it 🙌 turning messy AI builds into premium sites is literally my thing.
+          yes, don't worry, i'll save it 🙌 turning messy, complex products into clean, shippable design is literally my thing.
         </Bubble>
       ),
     },
